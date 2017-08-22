@@ -4,8 +4,10 @@
 
 Generates inverted (opposite) version of the given color. 
 
-_This passes a long test suite of Adobe Photoshop CC inverted colors...   
+_This passes a long test suite of **Adobe Photoshop CC** inverted colors...   
 Generating exactly the same result with it._
+
+![Invert Animation](https://github.com/onury/invert-color/blob/master/test/anim/invert-animation.gif?raw=true)
 
 ## Installation
 
@@ -55,9 +57,7 @@ invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 
 **`bw` option**
 
- This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability).
-
-![Invert Animation](https://github.com/onury/invert-color/blob/master/test/anim/invert-animation.gif?raw=true)
+ This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability). The animation at the top is a demonstration.
 
 
 ## License
