@@ -19,7 +19,7 @@ npm i invert-color --save
 const invert = require('invert-color');
 ```
 
-###  `invert(color[, bw])` : `String`
+**`invert(color[, bw])`**
 
 - **`color`** : `String|Array|Object`  
 Color in HEX string, RGB array or RGB object to be inverted.  
@@ -39,23 +39,25 @@ invert([69, 191, 189])              // —> #ba4042
 invert({ r: 249, g: 119, b: 121 })  // —> #068886
 ```
 
-###  `invert.asRgbArray(color[, bw])` : `Array`
+**`invert.asRgbArray(color[, bw])`**
 
 ```js
 // output as RGB array
 invert.asRgbArray('#000')           // —> [255, 255, 255]
 ```
 
-###  `invert.asRgbArray(color[, bw])`  : `Object`
+**`invert.asRgbArray(color[, bw])`**
 
 ```js
 // output as RGB object
 invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 ```
 
-### `bw` option
+**`bw` option**
 
  This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability).
+
+![Invert Animation](https://github.com/onury/invert-color/blob/master/test/anim/invert-animation.gif?raw=true)
 
 
 ## License
