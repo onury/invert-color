@@ -1,0 +1,8 @@
+/backup/
+/node_modules/
+npm-debug.log
+tmp
+TODO.md
+/docs/
+/private/
+.DS_Store
