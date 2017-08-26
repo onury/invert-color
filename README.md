@@ -21,7 +21,7 @@ npm i invert-color --save
 const invert = require('invert-color');
 ```
 
-**`invert(color[, bw])`**
+### `invert(color[, bw])`
 
 - **`color`** : `String|Array|Object`  
 Color in HEX string, RGB array or RGB object to be inverted.  
@@ -41,17 +41,17 @@ invert([69, 191, 189])              // —> #ba4042
 invert({ r: 249, g: 119, b: 121 })  // —> #068886
 ```
 
-**`invert.asRgbArray(color[, bw])`**
+### `invert.asRgbArray(color[, bw])`
+Invert and output result as RGB **array**.
 
 ```js
-// output as RGB array
 invert.asRgbArray('#000')           // —> [255, 255, 255]
 ```
 
-**`invert.asRgbArray(color[, bw])`**
+### `invert.asRgbObject(color[, bw])`
+Invert and output result as RGB **object**.
 
 ```js
-// output as RGB object
 invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 ```
 
