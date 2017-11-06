@@ -79,6 +79,11 @@ There's nothing to build. Run tests:
 npm test
 ```
 
+Add (failing) tests into [test/unit.spec.js](test/unit.spec.js) file.  
+Add implementation.  
+Pass tests.  
+Refactor and repeat.
+
 ## License
 
 [MIT][license].
