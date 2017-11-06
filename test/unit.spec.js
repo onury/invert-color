@@ -127,6 +127,12 @@ describe('test: invert-color', () => {
         expect(invert('#fff', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
     });
 
+    it('should support true/false/object for black and white parameter', () => {
+        expect(invert('#201395', true)).toEqual('#ffffff');
+        expect(invert('#201395', false)).toEqual('#dfec6a');
+        expect(invert('#201395', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+    });
+
     it('should invert to/from array/object to B/W', () => {
         // this test also checks for object mutation
 
