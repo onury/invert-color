@@ -43,26 +43,35 @@ function getLuminance(c) {
     return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
 }
 
-function invertToBW(color, asArr) {
+function invertToBW(color, bw, asArr) {
+    const bwColors = (bw === true)
+        ? {
+            dark: '#000000',
+            light: '#ffffff',
+        }
+        : {
+            dark: (bw && bw.dark) || '#000000',
+            light: (bw && bw.light) || '#ffffff',
+        };
     return getLuminance(color) > BW_TRESHOLD
-        ? (asArr ? [0, 0, 0] : '#000000')
-        : (asArr ? [255, 255, 255] : '#ffffff');
+        ? (asArr ? hexToRGB(bwColors.dark) : bwColors.dark)
+        : (asArr ? hexToRGB(bwColors.light) : bwColors.light);
 }
 
 function invert(color, bw) {
     color = toRGB(color);
-    if (bw) return invertToBW(color);
+    if (bw) return invertToBW(color, bw);
     return '#' + color.map(c => padz((255 - c).toString(16))).join('');
 }
 
 invert.asRgbArray = (color, bw) => {
     color = toRGB(color);
-    return bw ? invertToBW(color, true) : color.map(c => 255 - c);
+    return bw ? invertToBW(color, bw, true) : color.map(c => 255 - c);
 };
 
 invert.asRgbObject = (color, bw) => {
     color = toRGB(color);
-    return toObj(bw ? invertToBW(color, true) : color.map(c => 255 - c));
+    return toObj(bw ? invertToBW(color, bw, true) : color.map(c => 255 - c));
 };
 
 
