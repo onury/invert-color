@@ -59,6 +59,25 @@ invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 
  This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability). The animation at the top is a demonstration.
 
+## Contributing
+
+Clone original project (or fork and clone that):
+
+```sh
+git clone https://github.com/onury/invert-color.git
+```
+
+Install dependencies:
+
+```sh
+npm install
+```
+
+There's nothing to build. Run tests:
+
+```sh
+npm test
+```
 
 ## License
 
