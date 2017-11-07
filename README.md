@@ -91,6 +91,17 @@ npm test
 
 Travis build should pass.
 
+## Change-Log
+
+### v1.1.0 (2017-11-07)
+
+- Added ability to customize black/white color values.
+- Minor revisions.
+
+### v1.0.0 (2017-08-22)
+
+- Initial version.
+
 ## License
 
 [MIT][license].
