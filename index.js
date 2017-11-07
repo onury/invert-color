@@ -1,6 +1,6 @@
 'use strict';
 
-const BW_TRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05;
+const BW_THRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05;
 const RE_HEX = /^(?:[0-9a-f]{3}){1,2}$/i;
 
 function padz(str, len) {
@@ -51,7 +51,7 @@ function invertToBW(color, bw, asArr) {
     const bwColors = (bw === true)
         ? defaultColors
         : Object.assign({}, defaultColors, bw);
-    return getLuminance(color) > BW_TRESHOLD
+    return getLuminance(color) > BW_THRESHOLD
         ? (asArr ? hexToRGB(bwColors.black) : bwColors.black)
         : (asArr ? hexToRGB(bwColors.white) : bwColors.white);
 }
