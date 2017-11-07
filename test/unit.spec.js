@@ -18,8 +18,8 @@ describe('test: invert-color', () => {
     const A_CUSTOM_WHITE = [250, 250, 250];
     const O_CUSTOM_WHITE = { r: 250, g: 250, b: 250 };
     const CUSTOM_BW_COLORS = {
-        dark: CUSTOM_BLACK,
-        light: CUSTOM_WHITE,
+        black: CUSTOM_BLACK,
+        white: CUSTOM_WHITE,
     };
 
     it('should invert & match photoshop inverted colors', () => {

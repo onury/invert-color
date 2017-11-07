@@ -27,9 +27,9 @@ const invert = require('invert-color');
 Color in HEX string, RGB array or RGB object to be inverted.  
 - **`bw`** : `Boolean|Object`  
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.  
-When it's an object, it should be shaped like `{ dark: String?, light: String? }`,
-where `dark` and `light` are expressed as HEX strings and will be used as target
-amplified values. When any of them is missing, the default black/white will be assumed as dark/light.
+When it's an object, it should be shaped like `{ black: String?, withe: String? }`,
+where `black` and `white` are expressed as HEX strings and will be used as target
+amplified values. When any of them is missing, the default black/white will be assumed.
 
 
 ```js
@@ -39,8 +39,8 @@ invert('#282b35')           // —> #d7d4ca
 // amplify to black or white
 invert('#282b35', true)     // —> #ffffff
 
-// amplify to custom dark or light color
-invert('#282b35', { dark: '#3a3a3a', light: '#fafafa' })     // —> #fafafa
+// amplify to custom black or white color
+invert('#282b35', { black: '#3a3a3a', white: '#fafafa' })     // —> #fafafa
 
 // input color as RGB array or object
 invert([69, 191, 189])              // —> #ba4042

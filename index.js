@@ -45,15 +45,15 @@ function getLuminance(c) {
 
 function invertToBW(color, bw, asArr) {
     const defaultColors = {
-        dark: '#000000',
-        light: '#ffffff',
+        black: '#000000',
+        white: '#ffffff',
     };
     const bwColors = (bw === true)
         ? defaultColors
         : Object.assign({}, defaultColors, bw);
     return getLuminance(color) > BW_TRESHOLD
-        ? (asArr ? hexToRGB(bwColors.dark) : bwColors.dark)
-        : (asArr ? hexToRGB(bwColors.light) : bwColors.light);
+        ? (asArr ? hexToRGB(bwColors.black) : bwColors.black)
+        : (asArr ? hexToRGB(bwColors.white) : bwColors.white);
 }
 
 function invert(color, bw) {
