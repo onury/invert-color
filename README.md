@@ -89,7 +89,7 @@ Add tests into [test/unit.spec.js](test/unit.spec.js) and run:
 npm test
 ```
 
-Use included `eslintrc.json` and `editorconfig` for style and linting.
+Use included `eslintrc.json` and `editorconfig` for style and linting.  
 Travis build should pass.
 
 ## Change-Log
