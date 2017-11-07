@@ -95,7 +95,8 @@ Travis build should pass.
 
 ### v1.1.0 (2017-11-07)
 
-- Added ability to customize black/white color values.
+- Added ability to customize black/white color values. (PR #3 by [@BrainCrumbz](https://github.com/BrainCrumbz))
+- Fix typo. (PR #1 by [@villfa](https://github.com/villfa))
 - Minor revisions.
 
 ### v1.0.0 (2017-08-22)
