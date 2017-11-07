@@ -25,8 +25,11 @@ const invert = require('invert-color');
 
 - **`color`** : `String|Array|Object`  
 Color in HEX string, RGB array or RGB object to be inverted.  
-- **`bw`** : `Boolean`  
-Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.
+- **`bw`** : `Boolean|Object`  
+Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.  
+When it's an object, it should be shaped like `{ black: String?, white: String? }`,
+where `black` and `white` are expressed as HEX strings and will be used as target
+amplified values. When any of them is missing, the default black/white will be assumed.
 
 
 ```js
@@ -35,6 +38,9 @@ invert('#282b35')           // —> #d7d4ca
 
 // amplify to black or white
 invert('#282b35', true)     // —> #ffffff
+
+// amplify to custom black or white color
+invert('#282b35', { black: '#3a3a3a', white: '#fafafa' })     // —> #fafafa
 
 // input color as RGB array or object
 invert([69, 191, 189])              // —> #ba4042
@@ -59,6 +65,30 @@ invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 
  This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability). The animation at the top is a demonstration.
 
+## Contributing
+
+Clone original project (or fork and clone that):
+
+```sh
+git clone https://github.com/onury/invert-color.git
+```
+
+Install dependencies:
+
+```sh
+npm install
+```
+
+There's nothing to build. Run tests:
+
+```sh
+npm test
+```
+
+Add (failing) tests into [test/unit.spec.js](test/unit.spec.js) file.  
+Add implementation.  
+Pass tests.  
+Refactor and repeat.
 
 ## License
 

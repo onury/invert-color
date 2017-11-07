@@ -11,6 +11,16 @@ describe('test: invert-color', () => {
     const A_WHITE = [255, 255, 255];
     const O_BLACK = { r: 0, g: 0, b: 0 };
     const O_WHITE = { r: 255, g: 255, b: 255 };
+    const CUSTOM_BLACK = '#303030';
+    const CUSTOM_WHITE = '#fafafa';
+    const A_CUSTOM_BLACK = [48, 48, 48];
+    const O_CUSTOM_BLACK = { r: 48, g: 48, b: 48 };
+    const A_CUSTOM_WHITE = [250, 250, 250];
+    const O_CUSTOM_WHITE = { r: 250, g: 250, b: 250 };
+    const CUSTOM_BW_COLORS = {
+        black: CUSTOM_BLACK,
+        white: CUSTOM_WHITE,
+    };
 
     it('should invert & match photoshop inverted colors', () => {
         //            ORIGINAL            PHOTOSHOP
@@ -102,6 +112,27 @@ describe('test: invert-color', () => {
         expect(invert('#fff', true)).toEqual('#000000');
     });
 
+    it('should invert to custom black and white colors', () => {
+        expect(invert('#631746', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#655c42', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#166528', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#4c2946', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#002d26', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#e71398', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+        expect(invert('#3ab3af', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+        expect(invert('#76ff98', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+        expect(invert('#bbb962', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+        expect(invert('#52838b', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+        expect(invert('#000', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+        expect(invert('#fff', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
+    });
+
+    it('should support true/false/object for black and white parameter', () => {
+        expect(invert('#201395', true)).toEqual('#ffffff');
+        expect(invert('#201395', false)).toEqual('#dfec6a');
+        expect(invert('#201395', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
+    });
+
     it('should invert to/from array/object to B/W', () => {
         // this test also checks for object mutation
 
@@ -126,6 +157,32 @@ describe('test: invert-color', () => {
         // object as object
         expect(invert.asRgbObject(O_BLACK, true)).toEqual(O_WHITE);
         expect(invert.asRgbObject(O_WHITE, true)).toEqual(O_BLACK);
+    });
+
+    it('should invert to/from array/object to custom B/W', () => {
+        // this test also checks for object mutation
+
+        // hex as array
+        expect(invert.asRgbArray('#631746', CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_WHITE);
+        expect(invert.asRgbArray('#655c42', CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_WHITE);
+        expect(invert.asRgbArray('#e71398', CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
+
+        // hex as object
+        expect(invert.asRgbObject('#4c2946', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRgbObject('#002d26', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRgbObject('#76ff98', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
+
+        // array as array
+        expect(invert.asRgbArray(A_WHITE, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
+        expect(invert.asRgbArray(A_BLACK, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_WHITE);
+
+        // object as array
+        expect(invert.asRgbArray(O_BLACK, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_WHITE);
+        expect(invert.asRgbArray(O_WHITE, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
+
+        // object as object
+        expect(invert.asRgbObject(O_BLACK, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRgbObject(O_WHITE, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
     });
 
     it('should modulo exceeding RGB comps', () => {
