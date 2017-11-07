@@ -1,11 +1,18 @@
 # invert-color
 
+[![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master)](https://travis-ci.org/onury/invert-color)
+[![npm](http://img.shields.io/npm/v/invert-color.svg)](https://www.npmjs.com/package/invert-color)
+[![release](https://img.shields.io/github/release/onury/invert-color.svg)](https://github.com/onury/invert-color)
+[![license](http://img.shields.io/npm/l/invert-color.svg)](https://github.com/onury/invert-color/blob/master/LICENSE)
+[![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
+[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/invert-color/graphs/commit-activity)
+
 > © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Generates inverted (opposite) version of the given color. 
 
 _This passes a long test suite of **Adobe Photoshop CC** inverted colors...   
-Generating exactly the same result with it._
+Generating exactly the same results with it._
 
 ![Invert Animation](https://github.com/onury/invert-color/blob/master/test/anim/invert-animation.gif?raw=true)
 
@@ -26,10 +33,7 @@ const invert = require('invert-color');
 - **`color`** : `String|Array|Object`  
 Color in HEX string, RGB array or RGB object to be inverted.  
 - **`bw`** : `Boolean|Object`  
-Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color.  
-When it's an object, it should be shaped like `{ black: String?, white: String? }`,
-where `black` and `white` are expressed as HEX strings and will be used as target
-amplified values. When any of them is missing, the default black/white will be assumed.
+Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color. You can set custom black/white values by passing an object.  
 
 
 ```js
@@ -67,36 +71,29 @@ invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
 
 ## Contributing
 
-Clone original project (or fork and clone that):
+Clone original project:
 
 ```sh
 git clone https://github.com/onury/invert-color.git
 ```
 
-Install dependencies:
+Install (dev) dependencies:
 
 ```sh
 npm install
 ```
 
-There's nothing to build. Run tests:
+Add tests into [test/unit.spec.js](test/unit.spec.js) and run:  
 
 ```sh
 npm test
 ```
 
-Add (failing) tests into [test/unit.spec.js](test/unit.spec.js) file.  
-Add implementation.  
-Pass tests.  
-Refactor and repeat.
+Travis build should pass.
 
 ## License
 
 [MIT][license].
 
 
-[license]:https://github.com/onury/{{github-repo}}/blob/master/LICENSE
-[fiddle]:http://jsfiddle.net/onury/uof868n4
-[boxes]:http://jsfiddle.net/onury/uof868n4/embedded/result
-[so]:https://stackoverflow.com/a/3943023/112731
-[mransom]:https://stackoverflow.com/users/5987/mark-ransom
+[license]:https://github.com/onury/invert-color/blob/master/LICENSE
