@@ -27,6 +27,11 @@ npm i invert-color --save
 ```js
 const invert = require('invert-color');
 ```
+or
+```js
+import invert from 'invert-color';
+```
+
 
 ### `invert(color[, bw])`
 
