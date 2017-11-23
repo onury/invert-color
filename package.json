@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "node test",
-    "build": "babel src --presets es2015 --plugins transform-es2015-modules-umd --out-dir dist",
-    "watch": "babel -w src  --presets es2015 --plugins transform-es2015-modules-umd --out-dir dist"
+    "build": "babel src --presets es2015 --plugins transform-es2015-modules-umd --out-file dist/invert.js",
+    "watch": "babel -w src  --presets es2015 --plugins transform-es2015-modules-umd --out-file dist/invert.js"
   },
   "repository": {
     "type": "git",
