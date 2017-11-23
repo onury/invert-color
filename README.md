@@ -27,9 +27,9 @@ npm i invert-color --save
 ```js
 const invert = require('invert-color');
 ```
-To use ES5 version (for example in create-react-app):
+or
 ```js
-import invert from 'invert-color/dist';
+import invert from 'invert-color';
 ```
 
 
