@@ -97,7 +97,7 @@ yarn install
 Add tests into [test/unit.test.js](test/unit.test.js) and run:  
 
 ```sh
-yarn coverage
+yarn build && yarn cover
 ```
 
 Use included `eslintrc.json` and `editorconfig` for style and linting.  
