@@ -23,7 +23,7 @@ via **npm**:
 ```sh
 npm i invert-color --save
 ```
-with **yarn**:
+via **yarn**:
 ```sh
 yarn add invert-color
 ```
