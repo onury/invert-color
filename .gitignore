@@ -6,4 +6,5 @@ TODO.md
 /docs/
 /private/
 .DS_Store
+/test/.coverage/
 yarn-error.log
