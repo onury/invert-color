@@ -1,11 +1,12 @@
 # invert-color
-
+ 
 [![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master)](https://travis-ci.org/onury/invert-color)
+[![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master)](https://coveralls.io/github/onury/invert-color?branch=master)
+[![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
+[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/invert-color/graphs/commit-activity)  
 [![npm](http://img.shields.io/npm/v/invert-color.svg)](https://www.npmjs.com/package/invert-color)
 [![release](https://img.shields.io/github/release/onury/invert-color.svg)](https://github.com/onury/invert-color)
-[![license](http://img.shields.io/npm/l/invert-color.svg)](https://github.com/onury/invert-color/blob/master/LICENSE)
-[![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
-[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/invert-color/graphs/commit-activity)
+[![license](http://img.shields.io/npm/l/invert-color.svg)](https://github.com/onury/invert-color/blob/master/LICENSE) 
 
 > © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
@@ -18,17 +19,22 @@ Generating exactly the same results with it._
 
 ## Installation
 
+via **npm**:
 ```sh
 npm i invert-color --save
 ```
+with **yarn**:
+```sh
+yarn add invert-color
+```
+
+For browser, use `dist/invert.min.js` in a `<script>` tag.
 
 ## Usage
 
 ```js
 const invert = require('invert-color');
-```
-or
-```js
+// OR
 import invert from 'invert-color';
 ```
 
@@ -85,13 +91,13 @@ git clone https://github.com/onury/invert-color.git
 Install (dev) dependencies:
 
 ```sh
-npm install
+yarn install
 ```
 
-Add tests into [test/unit.spec.js](test/unit.spec.js) and run:  
+Add tests into [test/unit.test.js](test/unit.test.js) and run:  
 
 ```sh
-npm test
+yarn coverage
 ```
 
 Use included `eslintrc.json` and `editorconfig` for style and linting.  
@@ -99,10 +105,15 @@ Travis build should pass.
 
 ## Change-Log
 
+### v1.2.0 (2017-11-24)
+
+- Added UMD support. (PR [#6](https://github.com/onury/invert-color/pull/6) by [@criography](https://github.com/criography) - revised for latest Babel.)
+- (Dev) Migrated tests to Jest (dropped Jasmine).
+
 ### v1.1.0 (2017-11-07)
 
 - Added ability to customize black/white color values. (PR [#3](https://github.com/onury/invert-color/pull/3) by [@BrainCrumbz](https://github.com/BrainCrumbz))
-- Fix typo. (PR [#1](https://github.com/onury/invert-color/pull/1) by [@villfa](https://github.com/villfa))
+- Fixed typo. (PR [#1](https://github.com/onury/invert-color/pull/1) by [@villfa](https://github.com/villfa))
 - Minor revisions.
 
 ### v1.0.0 (2017-08-22)
