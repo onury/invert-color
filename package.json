@@ -1,19 +1,66 @@
 {
   "name": "invert-color",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Generates inverted (opposite) version of the given color.",
-  "main": "dist/invert.js",
+  "main": "dist/invert.min.js",
   "scripts": {
-    "test": "node test",
-    "build": "babel src --presets es2015 --plugins transform-es2015-modules-umd --out-file dist/invert.js",
-    "watch": "babel -w src  --presets es2015 --plugins transform-es2015-modules-umd --out-file dist/invert.js"
+    "build:dev": "BABEL_ENV=development babel src --out-file dist/invert.js",
+    "build:min": "BABEL_ENV=production babel src --out-file dist/invert.min.js",
+    "build": "yarn build:dev && yarn build:min",
+    "test": "jest --verbose",
+    "cover": "yarn test --coverage",
+    "coveralls": "cat ./test/.coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
+    "report": "open ./test/.coverage/lcov-report/index.html"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "@babel/preset-env"
+        ],
+        "plugins": [
+          "@babel/plugin-transform-modules-umd"
+        ]
+      },
+      "production": {
+        "presets": [
+          "@babel/preset-env",
+          "minify"
+        ],
+        "plugins": [
+          "@babel/plugin-transform-modules-umd"
+        ]
+      }
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/dist",
+      "<rootDir>/test"
+    ],
+    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.js?$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/backup/",
+      "/.coverage/",
+      "/anim/",
+      "invert.min.js"
+    ],
+    "collectCoverageFrom": [
+      "dist/**/*.js",
+      "!dist/**/*.min.js",
+      "!src/**"
+    ],
+    "coverageDirectory": "./test/.coverage",
+    "mapCoverage": true
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/onury/invert-color.git"
   },
   "files": [
-    "index.js",
+    "dist",
     "LICENSE"
   ],
   "keywords": [
@@ -31,10 +78,12 @@
   },
   "homepage": "https://github.com/onury/invert-color#readme",
   "devDependencies": {
-    "jasmine": "^2.7.0",
-    "jasmine-console-reporter": "^2.0.1",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1"
+    "@babel/cli": "^7.0.0-beta.32",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/plugin-transform-modules-umd": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "babel-preset-minify": "^0.2.0",
+    "coveralls": "^3.0.0",
+    "jest-cli": "^21.2.1"
   }
 }
