@@ -1,6 +1,6 @@
 'use strict';
 
-const invert = require('../src/index');
+const invert = require('../dist/invert.js');
 
 /**
  *  Test Suite
@@ -22,7 +22,7 @@ describe('test: invert-color', () => {
         white: CUSTOM_WHITE,
     };
 
-    it('should invert & match photoshop inverted colors', () => {
+    test('invert & match photoshop inverted colors', () => {
         //            ORIGINAL            PHOTOSHOP
         //            COLORS              INVERTED
         // ---------------------------------------------
@@ -83,7 +83,7 @@ describe('test: invert-color', () => {
         expect(invert('#566394')).toEqual('#a99c6b');
     });
 
-    it('should accept [r,g,b] or {r,g,b}', () => {
+    test('accept [r,g,b] or {r,g,b}', () => {
         expect(invert([0, 0, 0])).toEqual('#ffffff');
         expect(invert([255, 255, 255])).toEqual('#000000');
         expect(invert([249, 119, 121])).toEqual('#068886');
@@ -97,7 +97,7 @@ describe('test: invert-color', () => {
         expect(invert({ r: 191, g: 19, b: 123 })).toEqual('#40ec84');
     });
 
-    it('should invert to black or white', () => {
+    test('invert to black or white', () => {
         expect(invert('#631746', true)).toEqual('#ffffff');
         expect(invert('#655c42', true)).toEqual('#ffffff');
         expect(invert('#166528', true)).toEqual('#ffffff');
@@ -112,7 +112,7 @@ describe('test: invert-color', () => {
         expect(invert('#fff', true)).toEqual('#000000');
     });
 
-    it('should invert to custom black and white colors', () => {
+    test('invert to custom black and white colors', () => {
         expect(invert('#631746', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
         expect(invert('#655c42', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
         expect(invert('#166528', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
@@ -127,13 +127,13 @@ describe('test: invert-color', () => {
         expect(invert('#fff', CUSTOM_BW_COLORS)).toEqual(CUSTOM_BLACK);
     });
 
-    it('should support true/false/object for black and white parameter', () => {
+    test('support true/false/object for black and white parameter', () => {
         expect(invert('#201395', true)).toEqual('#ffffff');
         expect(invert('#201395', false)).toEqual('#dfec6a');
         expect(invert('#201395', CUSTOM_BW_COLORS)).toEqual(CUSTOM_WHITE);
     });
 
-    it('should invert to/from array/object to B/W', () => {
+    test('invert to/from array/object to B/W', () => {
         // this test also checks for object mutation
 
         // hex as array
@@ -141,10 +141,14 @@ describe('test: invert-color', () => {
         expect(invert.asRgbArray('#655c42', true)).toEqual(A_WHITE);
         expect(invert.asRgbArray('#e71398', true)).toEqual(A_BLACK);
 
+        expect(invert.asRgbArray('#282b35', false)).toEqual([215, 212, 202]);
+
         // hex as object
         expect(invert.asRgbObject('#4c2946', true)).toEqual(O_WHITE);
         expect(invert.asRgbObject('#002d26', true)).toEqual(O_WHITE);
         expect(invert.asRgbObject('#76ff98', true)).toEqual(O_BLACK);
+
+        expect(invert.asRgbObject('#282b35', false)).toEqual({ r: 215, g: 212, b: 202 });
 
         // array as array
         expect(invert.asRgbArray(A_WHITE, true)).toEqual(A_BLACK);
@@ -159,7 +163,7 @@ describe('test: invert-color', () => {
         expect(invert.asRgbObject(O_WHITE, true)).toEqual(O_BLACK);
     });
 
-    it('should invert to/from array/object to custom B/W', () => {
+    test('invert to/from array/object to custom B/W', () => {
         // this test also checks for object mutation
 
         // hex as array
@@ -185,12 +189,12 @@ describe('test: invert-color', () => {
         expect(invert.asRgbObject(O_WHITE, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
     });
 
-    it('should modulo exceeding RGB comps', () => {
+    test('modulo exceeding RGB comps', () => {
         expect(invert([300, 300, 300])).toEqual('#2d2d2d');
         expect(invert({ r: -46, g: -46, b: -46 })).toEqual('#2d2d2d');
     });
 
-    it('should throw on invalid hex', () => {
+    test('throw on invalid hex', () => {
         expect(() => { invert('#'); }).toThrow();
         expect(() => { invert('12'); }).toThrow();
         expect(() => { invert('#ff'); }).toThrow();
@@ -201,7 +205,7 @@ describe('test: invert-color', () => {
         expect(() => { invert('##631746', true); }).toThrow();
     });
 
-    it('should not throw for valid hex with/out # prefix', () => {
+    test('not throw for valid hex with/out # prefix', () => {
         expect(() => { invert('123'); }).not.toThrow();
         expect(() => { invert('123456'); }).not.toThrow();
         expect(() => { invert('#aba'); }).not.toThrow();
