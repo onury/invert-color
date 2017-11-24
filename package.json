@@ -8,7 +8,7 @@
     "build:min": "BABEL_ENV=production babel src --out-file dist/invert.min.js",
     "build": "yarn build:dev && yarn build:min",
     "test": "jest --verbose",
-    "cover": "yarn test --coverage",
+    "cover": "jest --coverage --verbose",
     "coveralls": "cat ./test/.coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
     "report": "open ./test/.coverage/lcov-report/index.html"
   },
