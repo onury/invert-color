@@ -102,7 +102,7 @@ yarn build && yarn cover
 ```
 
 Use included `eslintrc.json` and `editorconfig` for style and linting.  
-Travis build should pass.
+Travis build should pass, coverage should not degrade.
 
 ## Change-Log
 
