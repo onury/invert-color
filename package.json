@@ -4,13 +4,14 @@
   "description": "Generates inverted (opposite) version of the given color.",
   "main": "dist/invert.min.js",
   "scripts": {
+    "build:cov": "BABEL_ENV=coverage babel src --out-file dist/.invert.cov.js",
     "build:dev": "BABEL_ENV=development babel src --out-file dist/invert.js",
-    "build:min": "BABEL_ENV=production babel src --out-file dist/invert.min.js",
-    "build": "yarn build:dev && yarn build:min",
-    "test": "jest --verbose",
-    "cover": "jest --coverage --verbose",
-    "coveralls": "cat ./test/.coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
-    "report": "open ./test/.coverage/lcov-report/index.html"
+    "build:prod": "BABEL_ENV=production babel src --out-file dist/invert.min.js",
+    "build": "yarn build:dev && yarn build:prod",
+    "test": "yarn build:cov && jest --verbose",
+    "cover": "yarn build:cov && jest --coverage --verbose --no-cache",
+    "coveralls": "cat test/.cov/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
+    "report": "open test/.cov/lcov-report/index.html"
   },
   "babel": {
     "env": {
@@ -30,6 +31,11 @@
         "plugins": [
           "@babel/plugin-transform-modules-umd"
         ]
+      },
+      "coverage": {
+        "presets": [
+          "@babel/preset-env"
+        ]
       }
     }
   },
@@ -43,16 +49,13 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/backup/",
-      "/.coverage/",
-      "/anim/",
-      "invert.min.js"
+      "/.cov/",
+      "/anim/"
     ],
     "collectCoverageFrom": [
-      "dist/**/*.js",
-      "!dist/**/*.min.js",
-      "!src/**"
+      "dist/.invert.cov.js"
     ],
-    "coverageDirectory": "./test/.coverage",
+    "coverageDirectory": "./test/.cov",
     "mapCoverage": true
   },
   "repository": {
