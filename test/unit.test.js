@@ -1,6 +1,6 @@
 'use strict';
 
-const invert = require('../dist/invert.js');
+const invert = require('../dist/.invert.cov.js');
 
 /**
  *  Test Suite
