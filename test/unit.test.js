@@ -1,6 +1,6 @@
 'use strict';
 
-const invert = require('../dist/.invert.cov.js');
+const invert = require('../src/index.js');
 
 /**
  *  Test Suite
@@ -19,7 +19,7 @@ describe('test: invert-color', () => {
     const O_CUSTOM_WHITE = { r: 250, g: 250, b: 250 };
     const CUSTOM_BW_COLORS = {
         black: CUSTOM_BLACK,
-        white: CUSTOM_WHITE,
+        white: CUSTOM_WHITE
     };
 
     test('invert & match photoshop inverted colors', () => {
@@ -110,6 +110,8 @@ describe('test: invert-color', () => {
         expect(invert('#52838b', true)).toEqual('#000000');
         expect(invert('#000', true)).toEqual('#ffffff');
         expect(invert('#fff', true)).toEqual('#000000');
+        expect(invert('#ffffff', true)).toEqual('#000000');
+        console.log(invert('#ffffff', false));
     });
 
     test('invert to custom black and white colors', () => {
