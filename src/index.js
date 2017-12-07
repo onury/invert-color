@@ -18,7 +18,7 @@ function toObj(c) {
 
 function hexToRGB(hex) {
     if (hex.slice(0, 1) === '#') hex = hex.slice(1);
-    if (!RE_HEX.test(hex)) throw new Error('Invalid HEX color.');
+    if (!RE_HEX.test(hex)) throw new Error(`Invalid HEX color: "${hex}"`);
     // normalize / convert 3-chars hex to 6-chars.
     if (hex.length === 3) {
         hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
@@ -71,6 +71,5 @@ invert.asRgbObject = (color, bw) => {
     color = toRGB(color);
     return toObj(bw ? invertToBW(color, bw, true) : color.map(c => 255 - c));
 };
-
 
 module.exports = invert;
