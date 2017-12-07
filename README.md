@@ -106,15 +106,19 @@ Travis build should pass, coverage should not degrade.
 
 ## Change-Log
 
+### v1.2.2 (2017-12-07)
+
+- **Fixed** an issue with UMD output (using webpack).
+
 ### v1.2.0 (2017-11-24)
 
-- Added UMD support. (PR [#6](https://github.com/onury/invert-color/pull/6) by [@criography](https://github.com/criography) - revised for latest Babel.)
+- **Added** UMD support. (PR [#6](https://github.com/onury/invert-color/pull/6) by [@criography](https://github.com/criography) - revised for latest Babel.)
 - (Dev) Migrated tests to Jest (dropped Jasmine).
 
 ### v1.1.0 (2017-11-07)
 
-- Added ability to customize black/white color values. (PR [#3](https://github.com/onury/invert-color/pull/3) by [@BrainCrumbz](https://github.com/BrainCrumbz))
-- Fixed typo. (PR [#1](https://github.com/onury/invert-color/pull/1) by [@villfa](https://github.com/villfa))
+- **Added** ability to customize black/white color values. (PR [#3](https://github.com/onury/invert-color/pull/3) by [@BrainCrumbz](https://github.com/BrainCrumbz))
+- **Fixed** typo. (PR [#1](https://github.com/onury/invert-color/pull/1) by [@villfa](https://github.com/villfa))
 - Minor revisions.
 
 ### v1.0.0 (2017-08-22)
