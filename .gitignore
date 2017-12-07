@@ -3,9 +3,6 @@
 npm-debug.log
 tmp
 TODO.md
-/docs/
-/private/
 .DS_Store
 /test/.cov/
-yarn-error.log
-/dist/.*
+/lib/.*
