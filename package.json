@@ -1,48 +1,30 @@
 {
   "name": "invert-color",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generates inverted (opposite) version of the given color.",
-  "main": "dist/invert.min.js",
+  "repository": "onury/invert-color",
+  "author": "Onur Yildirim <onur@cutepilot.com>",
+  "license": "MIT",
+  "main": "lib/invert.min.js",
+  "files": [
+    "lib",
+    "LICENSE"
+  ],
   "scripts": {
-    "build:cov": "BABEL_ENV=coverage babel src --out-file dist/.invert.cov.js",
-    "build:dev": "BABEL_ENV=development babel src --out-file dist/invert.js",
-    "build:prod": "BABEL_ENV=production babel src --out-file dist/invert.min.js",
-    "build": "yarn build:dev && yarn build:prod",
-    "test": "yarn build:cov && jest --verbose",
-    "cover": "yarn build:cov && jest --coverage --verbose --no-cache",
+    "lint": "eslint ./src/**/*.js",
+    "build:cov": "npm run lint && webpack --env.WEBPACK_OUT=coverage --progress --colors",
+    "build:dev": "webpack --env.WEBPACK_OUT=development --progress --colors",
+    "build:prod": "webpack --env.WEBPACK_OUT=production --progress --colors",
+    "build": "npm run lint && npm run build:dev && npm run build:prod",
+    "test": "npm run build:cov && jest --verbose",
+    "cover": "npm run build:cov && jest --coverage --verbose --no-cache",
     "coveralls": "cat test/.cov/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
     "report": "open test/.cov/lcov-report/index.html"
-  },
-  "babel": {
-    "env": {
-      "development": {
-        "presets": [
-          "@babel/preset-env"
-        ],
-        "plugins": [
-          "@babel/plugin-transform-modules-umd"
-        ]
-      },
-      "production": {
-        "presets": [
-          "@babel/preset-env",
-          "minify"
-        ],
-        "plugins": [
-          "@babel/plugin-transform-modules-umd"
-        ]
-      },
-      "coverage": {
-        "presets": [
-          "@babel/preset-env"
-        ]
-      }
-    }
   },
   "jest": {
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/dist",
+      "<rootDir>/lib",
       "<rootDir>/test"
     ],
     "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.js?$",
@@ -53,19 +35,12 @@
       "/anim/"
     ],
     "collectCoverageFrom": [
-      "dist/.invert.cov.js"
+      "src/index.js"
     ],
     "coverageDirectory": "./test/.cov",
-    "mapCoverage": true
+    "mapCoverage": true,
+    "transform": {}
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/onury/invert-color.git"
-  },
-  "files": [
-    "dist",
-    "LICENSE"
-  ],
   "keywords": [
     "color",
     "invert",
@@ -74,19 +49,13 @@
     "hex",
     "rgb"
   ],
-  "author": "Onur Yildirim <onur@cutepilot.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/onury/invert-color/issues"
-  },
-  "homepage": "https://github.com/onury/invert-color#readme",
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.32",
-    "@babel/core": "^7.0.0-beta.32",
-    "@babel/plugin-transform-modules-umd": "^7.0.0-beta.32",
-    "@babel/preset-env": "^7.0.0-beta.32",
-    "babel-preset-minify": "^0.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-es2015": "^6.24.1",
     "coveralls": "^3.0.0",
-    "jest-cli": "^21.2.1"
+    "eslint": "^4.12.1",
+    "jest-cli": "^21.2.1",
+    "webpack": "^3.10.0"
   }
 }
