@@ -111,7 +111,6 @@ describe('test: invert-color', () => {
         expect(invert('#000', true)).toEqual('#ffffff');
         expect(invert('#fff', true)).toEqual('#000000');
         expect(invert('#ffffff', true)).toEqual('#000000');
-        console.log(invert('#ffffff', false));
     });
 
     test('invert to custom black and white colors', () => {
