@@ -108,7 +108,8 @@ Travis build should pass, coverage should not degrade.
 
 ### v1.2.2 (2017-12-07)
 
-- **Fixed** an issue with UMD output (using webpack).
+- **Fixed** an issue with UMD output. Fixes [#7](https://github.com/onury/invert-color/issues/7).
+- **(Dev)** Adapted webpack for UMD.
 
 ### v1.2.0 (2017-11-24)
 
