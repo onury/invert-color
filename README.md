@@ -24,12 +24,8 @@ via **npm**:
 ```sh
 npm i invert-color --save
 ```
-via **yarn**:
-```sh
-yarn add invert-color
-```
 
-For browser, use `dist/invert.min.js` in a `<script>` tag.
+For browser, use `lib/invert.min.js` in a `<script>` tag.
 
 ## Usage
 
@@ -92,13 +88,13 @@ git clone https://github.com/onury/invert-color.git
 Install (dev) dependencies:
 
 ```sh
-yarn install
+npm install
 ```
 
 Add tests into [test/unit.test.js](test/unit.test.js) and run:  
 
 ```sh
-yarn build && yarn cover
+npm run build && npm run cover
 ```
 
 Use included `eslintrc.json` and `editorconfig` for style and linting.  
