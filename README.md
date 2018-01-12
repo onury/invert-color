@@ -6,10 +6,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master)](https://coveralls.io/github/onury/invert-color?branch=master)
 [![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
 [![Known Vulnerabilities](https://snyk.io/test/github/onury/invert-color/badge.svg)](https://snyk.io/test/github/onury/invert-color)
-[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/invert-color/graphs/commit-activity)
+[![maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/onury/invert-color/graphs/commit-activity)
 [![license](http://img.shields.io/npm/l/invert-color.svg)](https://github.com/onury/invert-color/blob/master/LICENSE) 
 
-> © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
+> © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Generates inverted (opposite) version of the given color. 
 
