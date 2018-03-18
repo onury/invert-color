@@ -1,12 +1,12 @@
 # invert-color
  
 [![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master)](https://travis-ci.org/onury/invert-color)
-[![npm](http://img.shields.io/npm/v/invert-color.svg)](https://www.npmjs.com/package/invert-color)
-[![release](https://img.shields.io/github/release/onury/invert-color.svg)](https://github.com/onury/invert-color)
 [![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master)](https://coveralls.io/github/onury/invert-color?branch=master)
 [![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
 [![Known Vulnerabilities](https://snyk.io/test/github/onury/invert-color/badge.svg)](https://snyk.io/test/github/onury/invert-color)
-[![maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/onury/invert-color/graphs/commit-activity)
+[![maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/onury/invert-color/graphs/commit-activity)  
+[![npm](http://img.shields.io/npm/v/invert-color.svg)](https://www.npmjs.com/package/invert-color)
+[![release](https://img.shields.io/github/release/onury/invert-color.svg)](https://github.com/onury/invert-color)
 [![downloads](http://img.shields.io/npm/dm/invert-color.svg)](https://www.npmjs.com/package/invert-color)
 [![license](http://img.shields.io/npm/l/invert-color.svg)](https://github.com/onury/invert-color/blob/master/LICENSE) 
 
