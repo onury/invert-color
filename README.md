@@ -1,6 +1,6 @@
 # invert-color
  
-[![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master&logo=travis)](https://travis-ci.org/onury/invert-color)
+[![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master)](https://travis-ci.org/onury/invert-color)
 [![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master)](https://coveralls.io/github/onury/invert-color?branch=master)
 [![dependencies](https://david-dm.org/onury/invert-color.svg)](https://david-dm.org/onury/invert-color)
 [![Known Vulnerabilities](https://snyk.io/test/github/onury/invert-color/badge.svg)](https://snyk.io/test/github/onury/invert-color)
