@@ -206,6 +206,10 @@ describe('test: invert-color', () => {
         expect(() => { invert('##631746', true); }).toThrow();
     });
 
+    test('throw on other invalid color values', () => {
+      expect(() => { invert(null, true); }).toThrow('Invalid color value');
+    });
+
     test('not throw for valid hex with/out # prefix', () => {
         expect(() => { invert('123'); }).not.toThrow();
         expect(() => { invert('123456'); }).not.toThrow();
