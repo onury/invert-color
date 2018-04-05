@@ -105,7 +105,7 @@ Travis build should pass, coverage should not degrade.
 
 ### v1.2.3 (2017-12-07)
 
-- Better error messages. Fixes [#8](https://github.com/onury/invert-color/issues/8).
+- Better error messages. (PR [#9](https://github.com/onury/invert-color/pull/9) by [@CAYdenberg](https://github.com/CAYdenberg)) Fixes [#8](https://github.com/onury/invert-color/issues/8).
 
 ### v1.2.2 (2017-12-07)
 
