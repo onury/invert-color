@@ -103,6 +103,10 @@ Travis build should pass, coverage should not degrade.
 
 ## Change-Log
 
+### v1.2.3 (2017-12-07)
+
+- Better error messages. Fixes [#8](https://github.com/onury/invert-color/issues/8).
+
 ### v1.2.2 (2017-12-07)
 
 - **Fixed** an issue with UMD output. Fixes [#7](https://github.com/onury/invert-color/issues/7).
