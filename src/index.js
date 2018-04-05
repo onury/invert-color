@@ -32,6 +32,9 @@ function hexToRGB(hex) {
 
 // c = String (hex) | Array [r, g, b] | Object {r, g, b}
 function toRGB(c) {
+    if (!c) {
+      throw new Error('Invalid color value');
+    }
     if (Array.isArray(c)) return c;
     return typeof c === 'string' ? hexToRGB(c) : [c.r, c.g, c.b];
 }
