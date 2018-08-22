@@ -9,6 +9,7 @@
 [![release](https://img.shields.io/github/release/onury/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color)
 [![downloads](http://img.shields.io/npm/dm/invert-color.svg?style=flat-square)](https://www.npmjs.com/package/invert-color)
 [![license](http://img.shields.io/npm/l/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color/blob/master/LICENSE) 
+[![typescript](https://img.shields.io/badge/written%20in-%20TypeScript%20-6575ff.svg?style=flat-square)](https://www.typescriptlang.org)   
 
 > © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
@@ -32,8 +33,8 @@ For browser, use `lib/invert.min.js` in a `<script>` tag.
 
 ```js
 const invert = require('invert-color');
-// OR
-import invert from 'invert-color';
+// OR 
+import { invert } from 'invert-color';
 ```
 
 
@@ -60,18 +61,18 @@ invert([69, 191, 189])              // —> #ba4042
 invert({ r: 249, g: 119, b: 121 })  // —> #068886
 ```
 
+### `invert.asRGB(color[, bw])`
+Invert and output result as RGB **object**.
+
+```js
+invert.asRGB('#fff')          // —> { r: 0, g: 0, b: 0 }
+```
+
 ### `invert.asRgbArray(color[, bw])`
 Invert and output result as RGB **array**.
 
 ```js
-invert.asRgbArray('#000')           // —> [255, 255, 255]
-```
-
-### `invert.asRgbObject(color[, bw])`
-Invert and output result as RGB **object**.
-
-```js
-invert.asRgbObject('#fff')          // —> { r: 0, g: 0, b: 0 }
+invert.asRgbArray('#000')      // —> [255, 255, 255]
 ```
 
 **`bw` option**
@@ -92,16 +93,20 @@ Install (dev) dependencies:
 npm install
 ```
 
-Add tests into [test/unit.test.js](test/unit.test.js) and run:  
+Add tests into [test/unit.test.ts](test/unit.test.ts) and run:  
 
 ```sh
-npm run build && npm run cover
+npm run cover
 ```
 
-Use included `eslintrc.json` and `editorconfig` for style and linting.  
 Travis build should pass, coverage should not degrade.
 
 ## Change-Log
+
+### v1.5.0 (2018-08-22)
+
+- Re-written in TypeScript.
+- Added `.asRGB()` - alias of `.asRgbObject()`.
 
 ### v1.2.3 (2018-04-05)
 
