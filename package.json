@@ -1,61 +1,78 @@
 {
-  "name": "invert-color",
-  "version": "1.2.3",
-  "description": "Generates inverted (opposite) version of the given color.",
-  "repository": "onury/invert-color",
-  "author": "Onur Yildirim <onur@cutepilot.com>",
-  "license": "MIT",
-  "main": "lib/invert.min.js",
-  "files": [
-    "lib",
-    "LICENSE"
-  ],
-  "scripts": {
-    "lint": "eslint ./src/**/*.js",
-    "build:cov": "npm run lint && webpack --env.WEBPACK_OUT=coverage --progress --colors",
-    "build:dev": "webpack --env.WEBPACK_OUT=development --progress --colors",
-    "build:prod": "webpack --env.WEBPACK_OUT=production --progress --colors",
-    "build": "npm run lint && npm run build:dev && npm run build:prod",
-    "test": "npm run build:cov && jest --verbose",
-    "cover": "npm run build:cov && jest --coverage --verbose --no-cache",
-    "coveralls": "cat test/.cov/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
-    "report": "open test/.cov/lcov-report/index.html"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/lib",
-      "<rootDir>/test"
+    "name": "invert-color",
+    "version": "1.2.3",
+    "description": "Generates inverted (opposite) version of the given color.",
+    "repository": "onury/invert-color",
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "main": "lib/invert.min.js",
+    "files": [
+        "lib",
+        "LICENSE"
     ],
-    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.js?$",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/backup/",
-      "/.cov/",
-      "/anim/"
+    "types": "./lib/invert.d.ts",
+    "scripts": {
+        "clean": "rimraf ./lib",
+        "lint": "tslint ./src/**/*.ts",
+        "build:cov": "npm run lint && webpack --mode=development --env.WEBPACK_OUT=coverage --progress --colors",
+        "build:dev": "webpack --mode=development --env.WEBPACK_OUT=development --progress --colors",
+        "build:prod": "webpack ---mode=production --env.WEBPACK_OUT=production --progress --colors",
+        "build": "npm run lint && npm run clean && npm run build:dev && npm run build:prod",
+        "test": "npm run build:dev && jest --verbose --no-cache",
+        "cover": "npm run build:cov && jest --coverage --verbose --no-cache",
+        "coveralls": "cat test/.cov/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
+        "report": "open test/.cov/lcov-report/index.html"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "transform": {
+            "^.+\\.tsx?$": "ts-jest"
+        },
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json",
+            "node"
+        ],
+        "roots": [
+            "<rootDir>/lib",
+            "<rootDir>/test"
+        ],
+        "testRegex": "(test|spec)\\.ts$",
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "/backup/",
+            "/.cov/",
+            "/anim/"
+        ],
+        "collectCoverageFrom": [
+            "src/invert.ts"
+        ],
+        "coverageDirectory": "./test/.cov"
+    },
+    "keywords": [
+        "color",
+        "invert",
+        "convert",
+        "generate",
+        "opposite",
+        "hex",
+        "rgb"
     ],
-    "collectCoverageFrom": [
-      "src/index.js"
-    ],
-    "coverageDirectory": "./test/.cov",
-    "mapCoverage": true,
-    "transform": {}
-  },
-  "keywords": [
-    "color",
-    "invert",
-    "opposite",
-    "generate",
-    "hex",
-    "rgb"
-  ],
-  "devDependencies": {
-    "babel-loader": "^7.1.2",
-    "babel-plugin-istanbul": "^4.1.5",
-    "babel-preset-es2015": "^6.24.1",
-    "coveralls": "^3.0.0",
-    "eslint": "^4.12.1",
-    "jest-cli": "^21.2.1",
-    "webpack": "^3.10.0"
-  }
+    "devDependencies": {
+        "@types/jest": "^23.3.1",
+        "coveralls": "^3.0.0",
+        "fork-ts-checker-webpack-plugin": "^0.4.7",
+        "jest-cli": "^23.5.0",
+        "rimraf": "^2.6.2",
+        "ts-jest": "^23.1.3",
+        "ts-loader": "^4.4.2",
+        "tslint": "^5.11.0",
+        "typescript": "^3.0.1",
+        "uglifyjs-webpack-plugin": "^1.2.7",
+        "webpack": "^4.16.5",
+        "webpack-cli": "^3.1.0"
+    }
 }
