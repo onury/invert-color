@@ -1,6 +1,6 @@
 {
     "name": "invert-color",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "description": "Generates inverted (opposite) version of the given color.",
     "repository": "onury/invert-color",
     "author": "Onur Yildirim <onur@cutepilot.com>",
