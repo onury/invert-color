@@ -1,23 +1,21 @@
-'use strict';
-
-const invert = require('../src/index.js');
+import { invert, Color, RGB, RgbArray, HexColor, BlackWhite } from '../src/invert';
 
 /**
  *  Test Suite
  */
 describe('test: invert-color', () => {
 
-    const A_BLACK = [0, 0, 0];
-    const A_WHITE = [255, 255, 255];
-    const O_BLACK = { r: 0, g: 0, b: 0 };
-    const O_WHITE = { r: 255, g: 255, b: 255 };
-    const CUSTOM_BLACK = '#303030';
-    const CUSTOM_WHITE = '#fafafa';
-    const A_CUSTOM_BLACK = [48, 48, 48];
-    const O_CUSTOM_BLACK = { r: 48, g: 48, b: 48 };
-    const A_CUSTOM_WHITE = [250, 250, 250];
-    const O_CUSTOM_WHITE = { r: 250, g: 250, b: 250 };
-    const CUSTOM_BW_COLORS = {
+    const A_BLACK: RgbArray = [0, 0, 0];
+    const A_WHITE: RgbArray = [255, 255, 255];
+    const O_BLACK: RGB = { r: 0, g: 0, b: 0 };
+    const O_WHITE: RGB = { r: 255, g: 255, b: 255 };
+    const CUSTOM_BLACK: HexColor = '#303030';
+    const CUSTOM_WHITE: HexColor = '#fafafa';
+    const A_CUSTOM_BLACK: RgbArray = [48, 48, 48];
+    const O_CUSTOM_BLACK: RGB = { r: 48, g: 48, b: 48 };
+    const A_CUSTOM_WHITE: RgbArray = [250, 250, 250];
+    const O_CUSTOM_WHITE: RGB = { r: 250, g: 250, b: 250 };
+    const CUSTOM_BW_COLORS: BlackWhite = {
         black: CUSTOM_BLACK,
         white: CUSTOM_WHITE
     };
@@ -145,11 +143,11 @@ describe('test: invert-color', () => {
         expect(invert.asRgbArray('#282b35', false)).toEqual([215, 212, 202]);
 
         // hex as object
-        expect(invert.asRgbObject('#4c2946', true)).toEqual(O_WHITE);
-        expect(invert.asRgbObject('#002d26', true)).toEqual(O_WHITE);
-        expect(invert.asRgbObject('#76ff98', true)).toEqual(O_BLACK);
+        expect(invert.asRGB('#4c2946', true)).toEqual(O_WHITE);
+        expect(invert.asRGB('#002d26', true)).toEqual(O_WHITE);
+        expect(invert.asRGB('#76ff98', true)).toEqual(O_BLACK);
 
-        expect(invert.asRgbObject('#282b35', false)).toEqual({ r: 215, g: 212, b: 202 });
+        expect(invert.asRGB('#282b35', false)).toEqual({ r: 215, g: 212, b: 202 });
 
         // array as array
         expect(invert.asRgbArray(A_WHITE, true)).toEqual(A_BLACK);
@@ -160,8 +158,8 @@ describe('test: invert-color', () => {
         expect(invert.asRgbArray(O_WHITE, true)).toEqual(A_BLACK);
 
         // object as object
-        expect(invert.asRgbObject(O_BLACK, true)).toEqual(O_WHITE);
-        expect(invert.asRgbObject(O_WHITE, true)).toEqual(O_BLACK);
+        expect(invert.asRGB(O_BLACK, true)).toEqual(O_WHITE);
+        expect(invert.asRGB(O_WHITE, true)).toEqual(O_BLACK);
     });
 
     test('invert to/from array/object to custom B/W', () => {
@@ -173,9 +171,9 @@ describe('test: invert-color', () => {
         expect(invert.asRgbArray('#e71398', CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
 
         // hex as object
-        expect(invert.asRgbObject('#4c2946', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
-        expect(invert.asRgbObject('#002d26', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
-        expect(invert.asRgbObject('#76ff98', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
+        expect(invert.asRGB('#4c2946', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRGB('#002d26', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRGB('#76ff98', CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
 
         // array as array
         expect(invert.asRgbArray(A_WHITE, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
@@ -186,8 +184,8 @@ describe('test: invert-color', () => {
         expect(invert.asRgbArray(O_WHITE, CUSTOM_BW_COLORS)).toEqual(A_CUSTOM_BLACK);
 
         // object as object
-        expect(invert.asRgbObject(O_BLACK, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
-        expect(invert.asRgbObject(O_WHITE, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
+        expect(invert.asRGB(O_BLACK, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
+        expect(invert.asRGB(O_WHITE, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
     });
 
     test('modulo exceeding RGB comps', () => {
