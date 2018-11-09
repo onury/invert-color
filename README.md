@@ -58,7 +58,7 @@ invert('#282b35', true)     // —> #ffffff
 invert('#282b35', { black: '#3a3a3a', white: '#fafafa' })     // —> #fafafa
 
 // amplify with custom luminance threshold (default is invert.defaultThreshold = ~0.179)
-invert('#282b35', { black: '#3a3a3a', white: '#fafafa', threshold: 0.5 })     // —> #fafafa
+invert('#282b35', { black: '#3a3a3a', white: '#fafafa', threshold: 0.01 })     // —> #3a3a3a
 ```
 
 ### `invert.asRGB(color[, bw])`
