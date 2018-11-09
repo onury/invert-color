@@ -1,0 +1,15 @@
+body {
+    background: #e4e4e4;
+    text-align: center;
+    margin-top: 50px;
+    font-family: Cousine, "Fira Mono", monospace;
+    font-size: 16px;
+    line-height: 1.7em;
+}
+code {
+    font-size: 14.5px;
+    background: rgb(48, 43, 54);
+    color: rgb(255, 0, 119);
+    padding: 2px 5px 3px 5px;
+    border-radius: 3px;
+}

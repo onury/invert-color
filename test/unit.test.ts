@@ -1,4 +1,5 @@
-import { invert, Color, RGB, RgbArray, HexColor, BlackWhite } from '../src/invert';
+import invert, { RGB, RgbArray, HexColor, BlackWhite } from '../src/invert';
+const { defaultThreshold } = invert;
 
 /**
  *  Test Suite
@@ -19,6 +20,21 @@ describe('test: invert-color', () => {
         black: CUSTOM_BLACK,
         white: CUSTOM_WHITE
     };
+
+    test('check bundles', () => {
+        function checkObj(obj) {
+            expect(typeof invert).toEqual('function');
+            expect(typeof invert.defaultThreshold).toEqual('number');
+            expect(typeof invert.asRGB).toEqual('function');
+            expect(typeof invert.asRgbArray).toEqual('function');
+        }
+
+        checkObj(invert); // TS (src)
+        checkObj(require('../lib/invert')); // UMD
+        checkObj(require('../lib/invert.min')); // UMD minified
+        checkObj(require('../lib/cjs/invert')); // CommonJS
+        // TODO: check ESM ../lib/esm/invert
+    });
 
     test('invert & match photoshop inverted colors', () => {
         //            ORIGINAL            PHOTOSHOP
@@ -147,6 +163,7 @@ describe('test: invert-color', () => {
         expect(invert.asRGB('#002d26', true)).toEqual(O_WHITE);
         expect(invert.asRGB('#76ff98', true)).toEqual(O_BLACK);
 
+        expect(invert.asRGB('#a8f2f0', false)).toEqual({ b: 15, g: 13, r: 87 });
         expect(invert.asRGB('#282b35', false)).toEqual({ r: 215, g: 212, b: 202 });
 
         // array as array
@@ -186,6 +203,22 @@ describe('test: invert-color', () => {
         // object as object
         expect(invert.asRGB(O_BLACK, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_WHITE);
         expect(invert.asRGB(O_WHITE, CUSTOM_BW_COLORS)).toEqual(O_CUSTOM_BLACK);
+    });
+
+    test('invert to custom B/W with custom threshold', () => {
+        const color = '#929292';
+        const threshold = t => invert(color, { black: CUSTOM_BLACK, white: CUSTOM_WHITE, threshold: t });
+        const withDefaultThreshold = threshold(defaultThreshold);
+        expect(withDefaultThreshold).toEqual(invert(color, CUSTOM_BW_COLORS)); // no threshold defined
+        expect(withDefaultThreshold).toEqual(CUSTOM_BLACK);
+        expect(threshold(0)).toEqual(CUSTOM_BLACK);
+        expect(threshold(0.1)).toEqual(CUSTOM_BLACK);
+        expect(threshold(0.2)).toEqual(CUSTOM_BLACK);
+        expect(threshold(0.24)).toEqual(CUSTOM_BLACK);
+        expect(threshold(0.28)).toEqual(CUSTOM_BLACK);
+        expect(threshold(0.3)).toEqual(CUSTOM_WHITE);
+        expect(threshold(0.5)).toEqual(CUSTOM_WHITE);
+        expect(threshold(1)).toEqual(CUSTOM_WHITE);
     });
 
     test('modulo exceeding RGB comps', () => {
