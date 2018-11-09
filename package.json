@@ -16,7 +16,6 @@
     ],
     "scripts": {
         "clean": "rimraf ./lib",
-        "clean:after": "rimraf ./src/invert.js",
         "lint": "tslint ./src/**/*.ts",
         "build:esm": "tsc --module es2015 --target es2015 --outDir lib/esm",
         "build:cjs": "tsc --module commonjs --target es5 --outDir lib/cjs",
@@ -24,10 +23,9 @@
         "build:umd": "rollup lib/invert.js --format umd --name invert --exports default --sourcemap --banner '/*! @license https://github.com/onury/invert-color */' --file lib/invert.js",
         "build:umd:min": "cd lib && uglifyjs --compress --mangle --source-map --comments -o invert.min.js -- invert.js",
         "build": "npm run clean && npm run lint && npm run build:esm && npm run build:cjs && npm run build:es-for-umd && npm run build:umd && npm run build:umd:min",
-        "test": "jest --coverage --verbose --no-cache",
-        "cover": "test",
-        "coveralls": "cat test/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
-        "report": "open test/coverage/lcov-report/index.html"
+        "test": "jest --verbose --no-cache",
+        "cover": "jest --coverage --verbose --no-cache",
+        "coveralls": "cat test/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v"
     },
     "jest": {
         "testEnvironment": "node",
