@@ -68,7 +68,6 @@
         "@types/jest": "^23.3.9",
         "@types/node": "^10.12.3",
         "coveralls": "^3.0.2",
-        "esm": "^3.0.84",
         "fork-ts-checker-webpack-plugin": "^0.4.15",
         "jest": "^23.6.0",
         "jest-cli": "^23.6.0",
