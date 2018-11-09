@@ -29,17 +29,19 @@ export type Color = RGB | RgbArray | HexColor;
 export interface BlackWhite {
     black: HexColor;
     white: HexColor;
+    threshold?: number
 }
 
 // -------------------------------
 // CONSTANTS
 // -------------------------------
 
-const BW_THRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05;
+const DEFAULT_THRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05;
 const RE_HEX = /^(?:[0-9a-f]{3}){1,2}$/i;
 const DEFAULT_BW: BlackWhite = {
     black: '#000000',
-    white: '#ffffff'
+    white: '#ffffff',
+    threshold: DEFAULT_THRESHOLD
 };
 
 // -------------------------------
@@ -86,12 +88,12 @@ function getLuminance(c: RgbArray): number {
 }
 
 function invertToBW(color, bw: BlackWhite | boolean, asArr?: boolean): RgbArray | HexColor {
-    const colors = (bw === true)
+    const options = (bw === true)
         ? DEFAULT_BW
         : Object.assign({}, DEFAULT_BW, bw);
-    return getLuminance(color) > BW_THRESHOLD
-        ? (asArr ? hexToRgbArray(colors.black) : colors.black)
-        : (asArr ? hexToRgbArray(colors.white) : colors.white);
+    return getLuminance(color) > options.threshold
+        ? (asArr ? hexToRgbArray(options.black) : options.black)
+        : (asArr ? hexToRgbArray(options.white) : options.white);
 }
 
 // -------------------------------
@@ -121,11 +123,11 @@ namespace invert {
      *  Generates inverted (opposite) version of the given color, as a RGB object.
      *  @alias invert.asRgbObject
      *  @param {Color} color - Color to be inverted.
-     *  @param {BlackWhite|boolean} [bw=false] - Whether to amplify the inversion to
+     *  @param {BlackWhite|boolean} [bw] - Whether to amplify the inversion to
      *  black or white. Provide an object to customize black/white colors.
      *  @returns {RGB} - RGB object representation of the inverted color.
      */
-    export function asRGB(color: Color, bw: BlackWhite | boolean = false): RGB {
+    export function asRGB(color: Color, bw?: BlackWhite | boolean): RGB {
         color = toRgbArray(color);
         const list: RgbArray = bw
             ? invertToBW(color, bw, true) as RgbArray
@@ -136,16 +138,18 @@ namespace invert {
     /**
      *  Generates inverted (opposite) version of the given color, as a RGB array.
      *  @param {Color} color - Color to be inverted.
-     *  @param {BlackWhite|boolean} [bw=false] - Whether to amplify the inversion to
+     *  @param {BlackWhite|boolean} [bw] - Whether to amplify the inversion to
      *  black or white. Provide an object to customize black/white colors.
      *  @returns {RGB} - RGB array representation of the inverted color.
      */
-    export function asRgbArray(color: Color, bw: BlackWhite | boolean = false): RgbArray {
+    export function asRgbArray(color: Color, bw?: BlackWhite | boolean): RgbArray {
         color = toRgbArray(color);
         return bw
             ? invertToBW(color, bw, true) as RgbArray
             : color.map(c => 255 - c) as RgbArray;
     }
+
+    export const defaultThreshold = DEFAULT_THRESHOLD;
 
     /**
      *  Alias of `.asRGB()`
@@ -157,6 +161,4 @@ namespace invert {
 // EXPORT
 // -------------------------------
 
-// dual export
 export default invert;
-export { invert };
