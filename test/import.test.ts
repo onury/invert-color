@@ -2,43 +2,63 @@ import invert from '..';
 
 describe('test: import / require', () => {
 
-    test('import invert', () => {
+    function checkObj(obj) {
+        expect(typeof obj).toEqual('function');
+        expect(typeof obj.defaultThreshold).toEqual('number');
+        expect(typeof obj.asRGB).toEqual('function');
+        expect(typeof obj.asRgbArray).toEqual('function');
+        expect(obj(('#000'))).toEqual('#ffffff');
+    }
+
+    test('TS » import invert from', () => {
         let err = null;
         try {
-            expect(invert('#000')).toEqual('#ffffff');
+            checkObj(invert);
         } catch (e) {
             err = e;
         }
         expect(err).toEqual(null);
     });
 
-    test('require(\'../lib/invert\')', () => {
+    test('UMD » import(\'../lib/invert\') » default', async () => {
+        expect.assertions(6);
+        let err = null;
+        try {
+            const inv = await import('../lib/invert');
+            checkObj(inv.default);
+        } catch (e) {
+            err = e;
+        }
+        expect(err).toEqual(null);
+    });
+
+    test('UMD » require(\'../lib/invert\')', () => {
         let err = null;
         try {
             const inv = require('../lib/invert');
-            expect(inv(('#000'))).toEqual('#ffffff');
+            checkObj(inv);
         } catch (e) {
             err = e;
         }
         expect(err).toEqual(null);
     });
 
-    test('require(\'../lib/invert.min\')', () => {
+    test('UMD » require(\'../lib/invert.min\')', () => {
         let err = null;
         try {
             const inv = require('../lib/invert.min');
-            expect(inv(('#000'))).toEqual('#ffffff');
+            checkObj(inv);
         } catch (e) {
             err = e;
         }
         expect(err).toEqual(null);
     });
 
-    test('require(\'../lib/cjs/invert\').default', () => {
+    test('CJS » require(\'../lib/cjs/invert\') » default', () => {
         let err = null;
         try {
-            const inv = require('../lib/cjs/invert').default;
-            expect(inv(('#000'))).toEqual('#ffffff');
+            const inv = require('../lib/cjs/invert');
+            checkObj(inv.default);
         } catch (e) {
             err = e;
         }

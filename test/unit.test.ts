@@ -21,21 +21,6 @@ describe('test: invert-color', () => {
         white: CUSTOM_WHITE
     };
 
-    test('check bundles', () => {
-        function checkObj(obj) {
-            expect(typeof invert).toEqual('function');
-            expect(typeof invert.defaultThreshold).toEqual('number');
-            expect(typeof invert.asRGB).toEqual('function');
-            expect(typeof invert.asRgbArray).toEqual('function');
-        }
-
-        checkObj(invert); // TS (src)
-        checkObj(require('../lib/invert')); // UMD
-        checkObj(require('../lib/invert.min')); // UMD minified
-        checkObj(require('../lib/cjs/invert')); // CommonJS
-        // TODO: check ESM ../lib/esm/invert
-    });
-
     test('invert & match photoshop inverted colors', () => {
         //            ORIGINAL            PHOTOSHOP
         //            COLORS              INVERTED
