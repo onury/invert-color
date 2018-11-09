@@ -4,5 +4,5 @@ npm-debug.log
 tmp
 TODO.md
 .DS_Store
-/test/.cov/
+/test/coverage/
 /lib/.*
