@@ -44,7 +44,7 @@ declare namespace invert {
      *  Generates inverted (opposite) version of the given color, as a RGB object.
      *  @alias invert.asRgbObject
      *  @param {Color} color - Color to be inverted.
-     *  @param {BlackWhite|boolean} [bw=false] - Whether to amplify the inversion to
+     *  @param {BlackWhite|boolean} [bw] - Whether to amplify the inversion to
      *  black or white. Provide an object to customize black/white colors.
      *  @returns {RGB} - RGB object representation of the inverted color.
      */
@@ -52,7 +52,7 @@ declare namespace invert {
     /**
      *  Generates inverted (opposite) version of the given color, as a RGB array.
      *  @param {Color} color - Color to be inverted.
-     *  @param {BlackWhite|boolean} [bw=false] - Whether to amplify the inversion to
+     *  @param {BlackWhite|boolean} [bw] - Whether to amplify the inversion to
      *  black or white. Provide an object to customize black/white colors.
      *  @returns {RGB} - RGB array representation of the inverted color.
      */
