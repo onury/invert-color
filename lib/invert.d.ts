@@ -25,6 +25,7 @@ export declare type Color = RGB | RgbArray | HexColor;
 export interface BlackWhite {
     black: HexColor;
     white: HexColor;
+    threshold?: number;
 }
 /**
  *  Generates inverted (opposite) version of the given color.
@@ -56,10 +57,10 @@ declare namespace invert {
      *  @returns {RGB} - RGB array representation of the inverted color.
      */
     function asRgbArray(color: Color, bw?: BlackWhite | boolean): RgbArray;
+    const defaultThreshold: number;
     /**
      *  Alias of `.asRGB()`
      */
     const asRgbObject: typeof asRGB;
 }
 export default invert;
-export { invert };
