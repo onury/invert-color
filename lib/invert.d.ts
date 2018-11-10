@@ -57,6 +57,11 @@ declare namespace invert {
      *  @returns {RGB} - RGB array representation of the inverted color.
      */
     function asRgbArray(color: Color, bw?: BlackWhite | boolean): RgbArray;
+    /**
+     *  Default luminance threshold used for amplifying inversion to black and
+     *  white.
+     *  @type {number}
+     */
     const defaultThreshold: number;
     /**
      *  Alias of `.asRGB()`
