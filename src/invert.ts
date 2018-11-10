@@ -149,6 +149,11 @@ namespace invert {
             : color.map(c => 255 - c) as RgbArray;
     }
 
+    /**
+     *  Default luminance threshold used for amplifying inversion to black and
+     *  white.
+     *  @type {number}
+     */
     export const defaultThreshold = DEFAULT_THRESHOLD;
 
     /**
