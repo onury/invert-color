@@ -22,7 +22,7 @@ Generating exactly the same results with it._
 
 ## Usage
 
-`npm i invert-color --save`
+`npm i invert-color`
 
 ```js
 // Node, CommonJS
