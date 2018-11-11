@@ -104,7 +104,7 @@ Travis build should pass, coverage should not degrade.
 ## Change-Log
 
 ### v2.0.0 (2018-11-09)
-- **Breaking**: In order to fix import issues and be consistent on different environments; now using **default export** only. Added ESM, UMD, CommonJS bundles (with rollup). Fixes [#17](https://github.com/onury/invert-color/issues/17). See Usage section.
+- **Breaking**: In order to be consistent; now using **default export** only. Added ESM, UMD, CommonJS bundles (with rollup). See Usage section.
 - In addition to `main`, `package.json` now also defines `module`, `jsnext:main` and `browser`. 
 - Added `threshold: number` to `BlackWhite` options (interface). Fixes [#16](https://github.com/onury/invert-color/issues/16).
 - Added `invert.defaultThreshold` constant.
