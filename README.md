@@ -4,14 +4,14 @@
 [![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master&style=flat-square)](https://coveralls.io/github/onury/invert-color?branch=master)
 [![dependencies](https://david-dm.org/onury/invert-color.svg?style=flat-square)](https://david-dm.org/onury/invert-color)
 [![Known Vulnerabilities](https://snyk.io/test/github/onury/invert-color/badge.svg?style=flat-square)](https://snyk.io/test/github/onury/invert-color)
-[![maintained](https://img.shields.io/maintenance/yes/2018.svg?style=flat-square)](https://github.com/onury/invert-color/graphs/commit-activity)  
+[![maintained](https://img.shields.io/maintenance/yes/2019.svg?style=flat-square)](https://github.com/onury/invert-color/graphs/commit-activity)  
 [![npm](http://img.shields.io/npm/v/invert-color.svg?style=flat-square)](https://www.npmjs.com/package/invert-color)
 [![release](https://img.shields.io/github/release/onury/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color)
 [![downloads](http://img.shields.io/npm/dm/invert-color.svg?style=flat-square)](https://www.npmjs.com/package/invert-color)
 [![license](http://img.shields.io/npm/l/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color/blob/master/LICENSE) 
 [![typescript](https://img.shields.io/badge/written%20in-%20TypeScript%20-6575ff.svg?style=flat-square)](https://www.typescriptlang.org)   
 
-> © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
+> © 2019, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Generates inverted (opposite) version of the given color. (<1KB)
 
