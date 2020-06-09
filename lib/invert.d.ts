@@ -14,10 +14,11 @@ export declare type RgbArray = [number, number, number];
  *  Hexadecimal representation of a color.
  */
 export declare type HexColor = string;
+export declare type RgbString = string;
 /**
  *  Color represented as hexadecimal value or as RGB object or list.
  */
-export declare type Color = RGB | RgbArray | HexColor;
+export declare type Color = RGB | RgbArray | RgbString | HexColor;
 /**
  *  Interface for defining black and white colors; used to amplify the contrast
  *  of the color inversion.

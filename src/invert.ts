@@ -18,10 +18,12 @@ export type RgbArray = [number, number, number];
  *  Hexadecimal representation of a color.
  */
 export type HexColor = string;
+export type RgbString = string;
+
 /**
  *  Color represented as hexadecimal value or as RGB object or list.
  */
-export type Color = RGB | RgbArray | HexColor;
+export type Color = RGB | RgbArray | RgbString | HexColor;
 /**
  *  Interface for defining black and white colors; used to amplify the contrast
  *  of the color inversion.
@@ -108,9 +110,58 @@ function invertToBW(color, bw: BlackWhite | boolean, asArr?: boolean): RgbArray 
  *  @returns {HexColor} - Hexadecimal representation of the inverted color.
  */
 function invert(color: Color, bw: BlackWhite | boolean = false): HexColor {
-    color = toRgbArray(color);
-    if (bw) return invertToBW(color, bw) as HexColor;
-    return '#' + color.map(c => padz((255 - c).toString(16))).join('');
+    let isRgbString = false;
+    let isRgbaString = false;
+    if (typeof color === 'string' && color.startsWith('rgb')) {
+        if (color.startsWith('rgba')) {
+            isRgbaString = true;
+        } else {
+            isRgbString = true;
+        }
+    }
+
+    if (isRgbString) {
+        const matches: Object[] = (color as RgbString).match(/rgb\(([0-9 ]+),([0-9 ]+),([0-9 ]+)\)/);
+        if (matches) {
+            let rgbArr: RgbArray = [
+                parseInt(matches[1] as string),
+                parseInt(matches[2] as string),
+                parseInt(matches[3] as string),
+            ];
+
+            rgbArr = bw
+                ? invertToBW(rgbArr, bw, true) as RgbArray
+                : rgbArr.map(c => 255 - c) as RgbArray;
+
+            return `rgb(${rgbArr.join(',')})`
+        } else {
+            throw new Error('Invalid rgb color string: ' + color);
+        }
+    }
+    else if (isRgbaString) {
+        const matches: Object[] = (color as RgbString).match(/rgba\(([0-9 ]+),([0-9 ]+),([0-9 ]+),([0-9. ]+)\)/);
+        if (matches) {
+            let rgbArr: RgbArray = [
+                parseInt(matches[1] as string),
+                parseInt(matches[2] as string),
+                parseInt(matches[3] as string),
+            ];
+            const alphaChannel = (matches[4] as string).replace(/\s/g, '');
+
+            rgbArr = bw
+                ? invertToBW(rgbArr, bw, true) as RgbArray
+                : rgbArr.map(c => 255 - c) as RgbArray;
+
+            return `rgba(${rgbArr.join(',')},${alphaChannel})`
+        } else {
+            throw new Error('Invalid rgba color string: ' + color);
+        }
+    }
+    else {
+        color = toRgbArray(color);
+        if (bw) return invertToBW(color, bw) as HexColor;
+        return '#' + color.map(c => padz((255 - c).toString(16))).join('');
+    }
 }
 
 /**
