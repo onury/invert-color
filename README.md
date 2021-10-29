@@ -28,7 +28,7 @@ const invert = require('invert-color');
 // ES2015, JSNext
 import invert from 'invert-color';
 // TypeScript
-import invert, { RGB, RgbArray, HexColor, BlackWhite } from 'invert-color';
+import invert, { RGB, RgbArray, RgbString, HexColor, BlackWhite } from 'invert-color';
 ```
 For UMD in browser, use `lib/invert.min.js`.
 See [other exports](https://github.com/onury/invert-color/tree/master/lib).
@@ -36,7 +36,15 @@ See [other exports](https://github.com/onury/invert-color/tree/master/lib).
 ### `invert(color[, bw])`
 
 - **`color`** : `String|Array|Object`  
-Color in HEX string, RGB array or RGB object to be inverted.  
+    Color to be inverted in following formats:
+    
+    * HEX string: '#ff0'
+    * RGB string with alpha channel supported: 'rgb(100,100,100)' or 'rgba(255, 255, 0, 0.2)'
+    * RGB array
+    * RGB object
+  
+  See the example bellow for more detail.
+
 - **`bw`** : `Boolean|Object`  
 Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color. You can set custom black/white values (and/or luminance threshold) by passing an object.  
 
@@ -44,6 +52,10 @@ Optional. A boolean value indicating whether the output should be amplified to b
 ```js
 invert('#000')              // —> #ffffff
 invert('#282b35')           // —> #d7d4ca
+
+// as rgb string
+invert('rgb(0,0,0)')              // —> 'rgb(255,255,255)'
+invert('rgba(0,0,0,0.3)')              // —> 'rgba(255,255,255,0.3)'
 
 // input color as RGB array or object
 invert([69, 191, 189])              // —> #ba4042

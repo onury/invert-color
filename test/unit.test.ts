@@ -96,6 +96,13 @@ describe('test: invert-color', () => {
         expect(invert({ r: 191, g: 19, b: 123 })).toEqual('#40ec84');
     });
 
+    test('accept rgb[a] string', () => {
+        expect(invert('rgb(0,0,0)')).toEqual('rgb(255,255,255)');
+        expect(invert('rgba(191,19,123,0.7)')).toEqual('rgba(64,236,132,0.7)');
+        expect(invert('rgba(191, 19, 123, 0.7)')).toEqual('rgba(64,236,132,0.7)');
+        expect(invert('rgba( 191 , 19 , 123 , 0.7 )')).toEqual('rgba(64,236,132,0.7)');
+    });
+
     test('invert to black or white', () => {
         expect(invert('#631746', true)).toEqual('#ffffff');
         expect(invert('#655c42', true)).toEqual('#ffffff');
