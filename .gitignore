@@ -6,3 +6,6 @@ TODO.md
 .DS_Store
 /test/coverage/
 /lib/.*
+
+# Scratch / temp — never committed
+_backup/
