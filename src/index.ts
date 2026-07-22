@@ -62,9 +62,9 @@ const DEFAULT_BW: Required<BlackWhite> = {
 //  HELPERS
 // ---------------------------------------------------------------------------
 
-/** Formats a channel value as a 2-digit hex pair (last 2 hex digits, matching legacy overflow behavior). */
+/** Formats a `0`–`255` channel as a 2-digit hex pair. */
 function toHex(n: number): string {
-  return n.toString(16).padStart(2, '0').slice(-2);
+  return n.toString(16).padStart(2, '0');
 }
 
 function hexToRgbArray(hex: HexColor): RgbArray {
@@ -79,10 +79,20 @@ function hexToRgbArray(hex: HexColor): RgbArray {
   ];
 }
 
+// Validates a channel is a real number and normalizes it to a rounded integer in [0, 255].
+function toChannel(value: number): number {
+  if (!Number.isFinite(value)) throw new Error(`Invalid color channel: ${value}`);
+  return Math.round(Math.min(255, Math.max(0, value)));
+}
+
 function toRgbArray(color: Color): RgbArray {
   if (!color) throw new Error('Invalid color value');
-  if (Array.isArray(color)) return color;
-  return typeof color === 'string' ? hexToRgbArray(color) : [color.r, color.g, color.b];
+  if (typeof color === 'string') return hexToRgbArray(color);
+  const channels = Array.isArray(color) ? color : [color.r, color.g, color.b];
+  if (channels.length !== 3) {
+    throw new Error(`Invalid color value: expected 3 channels, got ${channels.length}`);
+  }
+  return channels.map(toChannel) as RgbArray;
 }
 
 function toRGB([r, g, b]: RgbArray): RGB {
@@ -92,7 +102,7 @@ function toRGB([r, g, b]: RgbArray): RGB {
 // Per-channel WCAG relative luminance (linearized sRGB).
 function channelLuminance(c: number): number {
   const x = c / 255;
-  // Stryker disable next-line EqualityOperator: the sRGB knee (x = 0.03928) is unreachable for 0–255 channels, so `<` vs `<=` is an equivalent mutant.
+  // Stryker disable next-line EqualityOperator: the sRGB knee (x = 0.03928) is unreachable for integer 0–255 channels, so `<` vs `<=` is an equivalent mutant.
   return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
 }
 
@@ -118,6 +128,9 @@ function invertToArray(color: Color, bw?: BlackWhite | boolean): RgbArray {
 
 /**
  *  Generates the inverted (opposite) version of the given color.
+ *
+ *  Channels are clamped to `0`–`255` and rounded; malformed input (a wrong-length
+ *  array or a non-finite channel) throws.
  *  @param color - Color to invert, as a HEX string, RGB array or RGB object.
  *  @param bw - When truthy, amplifies the result to black or white (per the
  *  source luminance) for maximum contrast. Pass a {@link BlackWhite} object to
