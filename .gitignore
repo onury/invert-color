@@ -1,11 +1,15 @@
-/backup/
-/node_modules/
+node_modules
+package-lock.json
+lib
+coverage
+test/coverage
+test/stryker
+.stryker-tmp
+*.tsbuildinfo
 npm-debug.log
+_backup/
+wiki
 tmp
 TODO.md
+.vscode/
 .DS_Store
-/test/coverage/
-/lib/.*
-
-# Scratch / temp — never committed
-_backup/

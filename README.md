@@ -1,144 +1,122 @@
 # invert-color
- 
-[![build-status](https://img.shields.io/travis/onury/invert-color.svg?branch=master&style=flat-square)](https://travis-ci.org/onury/invert-color)
-[![Coverage Status](https://coveralls.io/repos/github/onury/invert-color/badge.svg?branch=master&style=flat-square)](https://coveralls.io/github/onury/invert-color?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/onury/invert-color/badge.svg?style=flat-square)](https://snyk.io/test/github/onury/invert-color)
-[![npm](http://img.shields.io/npm/v/invert-color.svg?style=flat-square)](https://www.npmjs.com/package/invert-color)
-[![release](https://img.shields.io/github/release/onury/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color)
-[![downloads](http://img.shields.io/npm/dm/invert-color.svg?style=flat-square)](https://www.npmjs.com/package/invert-color)
-[![license](http://img.shields.io/npm/l/invert-color.svg?style=flat-square)](https://github.com/onury/invert-color/blob/master/LICENSE) 
-[![typescript](https://img.shields.io/badge/written%20in-%20TypeScript%20-6575ff.svg?style=flat-square)](https://www.typescriptlang.org)   
 
-> © 2021, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
+<p align="center">
+    <a href="https://github.com/onury/invert-color/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/onury/invert-color/ci.yml?branch=master&style=flat" alt="build status" /></a>
+    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/coverage-100%25-2BB150.svg?style=flat" alt="coverage" /></a>
+    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/mutation-100%25-2BB150.svg?style=flat" alt="mutation score" /></a>
+    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/v/invert-color.svg?style=flat&logo=npm&label=&color=C6234B" alt="npm version" /></a>
+    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/dm/invert-color.svg?style=flat&color=C6234B" alt="downloads" /></a>
+    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/dependencies-0-2BB150.svg?style=flat" alt="zero dependencies" /></a>
+    <a href="https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7"><img src="https://img.shields.io/badge/module-ESM-F7DF1E.svg?style=flat" alt="ESM" /></a>
+    <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/written%20in-TypeScript-3260C7.svg?style=flat" alt="TypeScript" /></a>
+    <a href="https://github.com/onury/invert-color/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/invert-color.svg?style=flat&color=2BB150" alt="license" /></a>
+</p>
 
-Generates inverted (opposite) version of the given color. (<1KB)
+> This module is **ESM** 🔆. Please [**read this**](https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7).
 
-_This passes a long test suite of **Adobe Photoshop CC** inverted colors...   
-Generating exactly the same results with it._
+Generates the inverted (opposite) version of a given color. Tiny, zero-dependency, and typed.
 
-![Invert Animation](https://github.com/onury/invert-color/blob/master/test/anim/invert-animation.gif?raw=true)
+<p align="center">
+    <img src="https://github.com/onury/invert-color/blob/master/art/invert-animation.gif?raw=true" alt="invert-color animation" />
+</p>
+
+> [!NOTE]
+> The results match **Adobe Photoshop CC** exactly — the suite is verified against a long list of Photoshop-inverted colors.
+
+## Installation
+
+```sh
+npm i invert-color
+```
 
 ## Usage
 
-`npm i invert-color`
-
-```js
-// Node, CommonJS
-const invert = require('invert-color');
-// ES2015, JSNext
+```ts
 import invert from 'invert-color';
-// TypeScript
-import invert, { RGB, RgbArray, HexColor, BlackWhite } from 'invert-color';
-```
-For UMD in browser, use `lib/invert.min.js`.
-See [other exports](https://github.com/onury/invert-color/tree/master/lib).
-
-### `invert(color[, bw])`
-
-- **`color`** : `String|Array|Object`  
-Color in HEX string, RGB array or RGB object to be inverted.  
-- **`bw`** : `Boolean|Object`  
-Optional. A boolean value indicating whether the output should be amplified to black (`#000000`) or white (`#ffffff`), according to the luminance of the original color. You can set custom black/white values (and/or luminance threshold) by passing an object.  
-
-
-```js
-invert('#000')              // —> #ffffff
-invert('#282b35')           // —> #d7d4ca
-
-// input color as RGB array or object
-invert([69, 191, 189])              // —> #ba4042
-invert({ r: 249, g: 119, b: 121 })  // —> #068886
-
-// amplify to black or white
-invert('#282b35', true)     // —> #ffffff
-
-// amplify to custom black or white color
-invert('#282b35', { black: '#3a3a3a', white: '#fafafa' })     // —> #fafafa
-
-// amplify with custom luminance threshold (default is invert.defaultThreshold = ~0.179)
-invert('#282b35', { black: '#3a3a3a', white: '#fafafa', threshold: 0.01 })     // —> #3a3a3a
+// or a named import — both resolve to the same function:
+import { invert } from 'invert-color';
+// with types:
+import invert, { type RGB, type RgbArray, type HexColor, type BlackWhite } from 'invert-color';
 ```
 
-### `invert.asRGB(color[, bw])`
-Invert and output result as RGB **object**.
+```ts
+invert('#000');                      // → '#ffffff'
+invert('#282b35');                   // → '#d7d4ca'
 
-```js
-invert.asRGB('#fff')          // —> { r: 0, g: 0, b: 0 }
+// RGB array or object input
+invert([69, 191, 189]);              // → '#ba4042'
+invert({ r: 249, g: 119, b: 121 });  // → '#068886'
 ```
 
-### `invert.asRgbArray(color[, bw])`
-Invert and output result as RGB **array**.
+### Amplify to Black or White
 
-```js
-invert.asRgbArray('#000')      // —> [255, 255, 255]
+Pass `bw: true` to amplify the result to black or white — chosen by the source color's luminance. Handy for picking a readable foreground over a given background.
+
+```ts
+invert('#282b35', true);   // → '#ffffff'
+invert('#d7d4ca', true);   // → '#000000'
 ```
 
-**`bw` option**
+Pass an object to customize the two colors, and/or the luminance `threshold`:
 
- This is useful in case, you need to create contrast (i.e. background vs foreground, for better readability). The animation at the top is a demonstration.
-
-## Contributing
-
-Clone original project:
-
-```sh
-git clone https://github.com/onury/invert-color.git
+```ts
+invert('#282b35', { black: '#3a3a3a', white: '#fafafa' });                   // → '#fafafa'
+invert('#282b35', { black: '#3a3a3a', white: '#fafafa', threshold: 0.01 });  // → '#3a3a3a'
 ```
 
-Install (dev) dependencies:
+> [!TIP]
+> `bw` is ideal for contrast — e.g. a background vs. its foreground text — so content stays legible. The animation above is exactly this in action.
 
-```sh
-npm install
+### Other Output Shapes
+
+```ts
+invert.asRGB('#fff');        // → { r: 0, g: 0, b: 0 }
+invert.asRgbArray('#000');   // → [255, 255, 255]
+invert.asRgbObject('#fff');  // → { r: 0, g: 0, b: 0 }   (alias of asRGB)
 ```
 
-Add tests into [test/unit.test.ts](test/unit.test.ts) and run:  
+## API
 
-```sh
-npm run cover
+| Member | Signature | Description |
+| ------ | --------- | ----------- |
+| `invert` | `(color, bw?) => HexColor` | Inverts `color`, returns a HEX string. |
+| `invert.asRGB` | `(color, bw?) => RGB` | Inverts `color`, returns an `{ r, g, b }` object. |
+| `invert.asRgbArray` | `(color, bw?) => RgbArray` | Inverts `color`, returns a `[r, g, b]` tuple. |
+| `invert.asRgbObject` | `(color, bw?) => RGB` | Alias of `invert.asRGB`. |
+| `invert.defaultThreshold` | `number` | Default luminance threshold (≈ `0.179`) used to amplify to black/white. |
+
+**Parameters**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `color` | `HexColor \| RgbArray \| RGB` | The color to invert. HEX may be 3- or 6-digit, with or without a leading `#`. |
+| `bw` | `boolean \| BlackWhite` | Optional. `true` amplifies to black/white by luminance. An object customizes `black`, `white` and/or `threshold`. Defaults to `false`. |
+
+**Types**
+
+```ts
+type RGB = { r: number; g: number; b: number };
+type RgbArray = [number, number, number];
+type HexColor = string;
+type Color = RGB | RgbArray | HexColor;
+
+interface BlackWhite {
+    black: HexColor;
+    white: HexColor;
+    threshold?: number; // 0–1, defaults to invert.defaultThreshold
+}
 ```
 
-Travis build should pass, coverage should not degrade.
+## Related
 
-## Change-Log
+- [**tinycolor2**](https://github.com/scttcper/tinycolor) — a fuller color-manipulation toolkit, when you need more than inversion.
 
-### v2.0.0 (2018-11-09)
-- **Breaking**: In order to be consistent; now using **default export** only. Added ESM, UMD, CommonJS bundles (with rollup). See Usage section.
-- In addition to `main`, `package.json` now also defines `module`, `jsnext:main` and `browser`. 
-- Added `threshold: number` to `BlackWhite` options (interface). Fixes [#16](https://github.com/onury/invert-color/issues/16).
-- Added `invert.defaultThreshold` constant.
+## Changelog
 
-### v1.5.0 (2018-08-22)
-
-- Re-written in TypeScript.
-- Added `.asRGB()` - alias of `.asRgbObject()`.
-
-### v1.2.3 (2018-04-05)
-
-- Better error messages. (PR [#9](https://github.com/onury/invert-color/pull/9) by [@CAYdenberg](https://github.com/CAYdenberg)) Fixes [#8](https://github.com/onury/invert-color/issues/8).
-
-### v1.2.2 (2017-12-07)
-
-- **Fixed** an issue with UMD output. Fixes [#7](https://github.com/onury/invert-color/issues/7).
-- **(Dev)** Adapted webpack for UMD.
-
-### v1.2.0 (2017-11-24)
-
-- **Added** UMD support. (PR [#6](https://github.com/onury/invert-color/pull/6) by [@criography](https://github.com/criography) - revised for latest Babel.)
-- (Dev) Migrated tests to Jest (dropped Jasmine).
-
-### v1.1.0 (2017-11-07)
-
-- **Added** ability to customize black/white color values. (PR [#3](https://github.com/onury/invert-color/pull/3) by [@BrainCrumbz](https://github.com/BrainCrumbz))
-- **Fixed** typo. (PR [#1](https://github.com/onury/invert-color/pull/1) by [@villfa](https://github.com/villfa))
-- Minor revisions.
-
-### v1.0.0 (2017-08-22)
-
-- Initial version.
+See [**CHANGELOG.md**](CHANGELOG.md). Version 3 is **ESM-only**; if you still need CommonJS/UMD, pin `invert-color@2`.
 
 ## License
 
-[MIT][license].
+© 2026, Onur Yıldırım. [**MIT**][license] License.
 
-
-[license]:https://github.com/onury/invert-color/blob/master/LICENSE
+[license]: https://github.com/onury/invert-color/blob/master/LICENSE

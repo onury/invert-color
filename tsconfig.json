@@ -1,86 +1,22 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "allowJs": false,
-        "allowUnreachableCode": false,
-        "allowUnusedLabels": false,
-        "alwaysStrict": true,
-        "charset": "utf8",
-        "checkJs": false,
-        "declaration": true,
-        "declarationDir": "./lib",
-        "diagnostics": false,
-        "disableSizeLimit": false,
-        "downlevelIteration": false,
-        "emitBOM": false,
-        "emitDeclarationOnly": false,
-        "emitDecoratorMetadata": true,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": false,
-        "importHelpers": false,
-        "inlineSourceMap": false,
-        "inlineSources": false,
-        "isolatedModules": false,
-        "lib": [
-            "es2015",
-            "es2016",
-            "es2017",
-            "dom"
-        ],
-        "listEmittedFiles": false,
-        "listFiles": false,
-        "locale": "en-us",
-        "maxNodeModuleJsDepth": 0,
-        "module": "ES2015",
-        "moduleResolution": "Node",
-        "noEmit": false,
-        "noEmitHelpers": false,
-        "noEmitOnError": false,
-        "noErrorTruncation": false,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": false,
-        "noImplicitReturns": true,
-        "noImplicitThis": false,
-        "noImplicitUseStrict": false,
-        "noLib": false,
-        "noResolve": false,
-        "noStrictGenericChecks": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": false,
-        "outDir": "./src",
-        "preserveConstEnums": false,
-        "preserveSymlinks": false,
-        "preserveWatchOutput": false,
-        "pretty": true,
-        "removeComments": false,
-        "skipLibCheck": false,
-        "sourceMap": false,
-        "strict": false,
-        "strictFunctionTypes": false,
-        "strictPropertyInitialization": false,
-        "strictNullChecks": false,
-        "stripInternal": false,
-        "suppressExcessPropertyErrors": false,
-        "suppressImplicitAnyIndexErrors": true,
-        "target": "ES2015", // "es5"
-        "traceResolution": false,
-        "typeRoots": [
-            "./node_modules/@types",
-            "./node_modules"
-        ],
-        "types": ["node", "jest"]
-    },
-    "include": [
-        "./src/**/*.ts"
-    ],
-    "exclude": [
-        "./node_modules",
-        "./lib",
-        "./dev",
-        "./docs",
-        "./test",
-        "./tasks",
-        "./backup"
-    ]
+  "extends": "tsconfig-oy",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "incremental": false,
+    "outDir": "lib",
+    "declarationDir": "lib",
+    "declarationMap": true,
+    "rootDir": ".",
+    // No `typeRoots`: restricting it (e.g. to ["node_modules/@types"]) breaks
+    // resolution of package-subpath type entries like "vitest/globals", which
+    // does not live under @types. That surfaces as TS2688 here and TS2593
+    // ("Cannot find name 'describe'") across the test files.
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ]
 }
