@@ -200,9 +200,23 @@ describe('invert-color', () => {
     expect(at(1)).toEqual(CUSTOM_WHITE);
   });
 
-  test('takes the last 2 hex digits of out-of-range channels', () => {
-    expect(invert([300, 300, 300])).toEqual('#2d2d2d');
-    expect(invert({ r: -46, g: -46, b: -46 })).toEqual('#2d2d2d');
+  test('clamps out-of-range channels to 0–255', () => {
+    expect(invert([300, 300, 300])).toEqual('#000000');
+    expect(invert({ r: -46, g: -46, b: -46 })).toEqual('#ffffff');
+    expect(invert([256, -1, 255])).toEqual('#00ff00');
+  });
+
+  test('rounds fractional channels', () => {
+    expect(invert([0.6, 0, 0])).toEqual('#feffff'); // round(0.6) = 1 → 255 − 1 = 254 = 'fe'
+    expect(invert([0.4, 0, 0])).toEqual('#ffffff'); // round(0.4) = 0 → 255 = 'ff'
+  });
+
+  test('throws on malformed array/object color values', () => {
+    expect(() => invert([1, 2] as unknown as RgbArray)).toThrow('expected 3 channels');
+    expect(() => invert([1, 2, 3, 4] as unknown as RgbArray)).toThrow('expected 3 channels');
+    expect(() => invert([Number.NaN, 0, 0])).toThrow('Invalid color channel');
+    expect(() => invert([Number.POSITIVE_INFINITY, 0, 0])).toThrow('Invalid color channel');
+    expect(() => invert({ r: Number.NaN, g: 0, b: 0 })).toThrow('Invalid color channel');
   });
 
   test('applies the luminance boundary and threshold exactly', () => {

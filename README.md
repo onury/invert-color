@@ -14,6 +14,9 @@
 
 > This module is **ESM** 🔆. Please [**read this**](https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7).
 
+> [!IMPORTANT]
+> **v3 is ESM-only — a breaking change.** The CommonJS and UMD builds are gone: `require('invert-color')` no longer works, and the minimum Node.js is now **20**. If you still need CommonJS/UMD, stay on **v2** — `npm i invert-color@2`. See the [changelog](CHANGELOG.md#300-2026-07-23) for the full upgrade note.
+
 Generates the inverted (opposite) version of a given color. Tiny, zero-dependency, and typed.
 
 <p align="center">
@@ -106,6 +109,9 @@ interface BlackWhite {
     threshold?: number; // 0–1, defaults to invert.defaultThreshold
 }
 ```
+
+> [!NOTE]
+> **Input handling.** Array/object channels are clamped to `0`–`255` and rounded, so out-of-range values degrade predictably (`invert([300, 300, 300]) → '#000000'`). Malformed input — a non-`3`-length array or a non-finite channel — throws, as does an invalid HEX string.
 
 ## Related
 
