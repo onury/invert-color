@@ -10,6 +10,8 @@ Modernization release. The callable API — `invert()`, `invert.asRGB()`, `inver
 
 ### Added
 
+- **CSS `rgb()` / `rgba()` string input.** `invert('rgb(40, 43, 53)')` and `invert('rgba(40, 43, 53, 0.5)')` now work; an `rgba()` alpha below `1` is preserved on `invert()` as the trailing hex byte (`#rrggbbaa`), while `asRGB` / `asRgbArray` return RGB only. Resolves [#21](https://github.com/onury/invert-color/issues/21) ([#22](https://github.com/onury/invert-color/pull/22), thanks [@luatnd](https://github.com/luatnd)).
+- **Plain `number[]` array input.** `invert.asRGB(channels)` where `channels: number[]` now type-checks — the accepted array type was widened from the strict `[number, number, number]` tuple (still the return type). Resolves [#23](https://github.com/onury/invert-color/issues/23).
 - A named export: `import { invert } from 'invert-color'` now works alongside the default `import invert from 'invert-color'` (both resolve to the same function).
 - **Input validation.** Array/object colors must have exactly 3 finite channels — a wrong-length array or a non-finite channel (`NaN`/`Infinity`) now throws a clear error, matching the existing HEX validation.
 

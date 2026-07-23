@@ -252,6 +252,47 @@ describe('invert-color', () => {
     expect(() => invert('#aba')).not.toThrow();
   });
 
+  test('accepts a plain number[] array (issue #23)', () => {
+    // A `number[]` (not the [number, number, number] tuple) must type-check.
+    const channels: number[] = [0, 0, 0];
+    expect(invert(channels)).toEqual('#ffffff');
+    expect(invert.asRGB(channels)).toEqual({ r: 255, g: 255, b: 255 });
+    expect(invert.asRgbArray(channels)).toEqual([255, 255, 255]);
+  });
+
+  test('parses rgb() / rgba() strings (issues #21, #22)', () => {
+    expect(invert('rgb(40, 43, 53)')).toEqual('#d7d4ca');
+    expect(invert('RGB(0,0,0)')).toEqual('#ffffff'); // case-insensitive
+    expect(invert('rgb( 255 , 255 , 255 )')).toEqual('#000000'); // whitespace tolerated
+    expect(invert.asRgbArray('rgb(0, 0, 0)')).toEqual([255, 255, 255]);
+    expect(invert.asRGB('rgb(255, 255, 255)')).toEqual({ r: 0, g: 0, b: 0 });
+  });
+
+  test('preserves rgba() alpha as an 8-digit hex', () => {
+    expect(invert('rgba(40, 43, 53, 0.5)')).toEqual('#d7d4ca80'); // 0.5 → 0x80
+    expect(invert('rgba(0,0,0,0.5)')).toEqual('#ffffff80'); // no spaces around alpha comma
+    expect(invert('rgba(0, 0, 0, 0.5 )')).toEqual('#ffffff80'); // trailing space before ')'
+    expect(invert('rgba(255, 255, 0, 0.2)')).toEqual('#0000ff33'); // 0.2 → 0x33
+    expect(invert('rgba(0, 0, 0, 0.004)')).toEqual('#ffffff01'); // 0.004×255 ≈ 1.02 → 0x01
+    expect(invert('rgba(0, 0, 0, 0)')).toEqual('#ffffff00'); // fully transparent
+    expect(invert('rgba(0, 0, 0, 1)')).toEqual('#ffffff'); // opaque → 6-digit
+    expect(invert('rgba(0, 0, 0, 2)')).toEqual('#ffffff'); // over-1 → opaque
+    expect(invert('rgba(0, 0, 0, 0.5)', true)).toEqual('#ffffff80'); // bw + alpha
+  });
+
+  test('drops alpha for asRGB / asRgbArray', () => {
+    expect(invert.asRgbArray('rgba(0, 0, 0, 0.5)')).toEqual([255, 255, 255]);
+    expect(invert.asRGB('rgba(255, 255, 255, 0.2)')).toEqual({ r: 0, g: 0, b: 0 });
+  });
+
+  test('throws on a malformed rgba() alpha or channel', () => {
+    expect(() => invert('rgba(0, 0, 0, 1.2.3)')).toThrow('Invalid alpha value');
+    expect(() => invert('rgb(1.2.3, 0, 0)')).toThrow('Invalid color channel');
+    expect(() => invert('rgb(0, 0)')).toThrow(); // not an rgb string, not valid hex
+    expect(() => invert('zzrgb(0,0,0)')).toThrow(); // junk before → must not match (leading anchor)
+    expect(() => invert('rgb(0,0,0)zz')).toThrow(); // junk after → must not match (trailing anchor)
+  });
+
   test('exposes the documented surface', () => {
     expect(typeof invert).toEqual('function');
     expect(typeof invert.asRGB).toEqual('function');
