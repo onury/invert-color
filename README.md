@@ -1,15 +1,15 @@
 # invert-color
 
 <p align="center">
-    <a href="https://github.com/onury/invert-color/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/onury/invert-color/ci.yml?branch=master&style=flat" alt="build status" /></a>
-    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/coverage-100%25-2BB150.svg?style=flat" alt="coverage" /></a>
-    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/mutation-100%25-2BB150.svg?style=flat" alt="mutation score" /></a>
-    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/v/invert-color.svg?style=flat&logo=npm&label=&color=C6234B" alt="npm version" /></a>
-    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/dm/invert-color.svg?style=flat&color=C6234B" alt="downloads" /></a>
-    <a href="https://github.com/onury/invert-color"><img src="https://img.shields.io/badge/dependencies-0-2BB150.svg?style=flat" alt="zero dependencies" /></a>
-    <a href="https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7"><img src="https://img.shields.io/badge/module-ESM-F7DF1E.svg?style=flat" alt="ESM" /></a>
-    <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/written%20in-TypeScript-3260C7.svg?style=flat" alt="TypeScript" /></a>
-    <a href="https://github.com/onury/invert-color/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/invert-color.svg?style=flat&color=2BB150" alt="license" /></a>
+    <a href="https://github.com/onury/invert-color/actions/workflows/ci.yml"><img src="https://github.com/onury/invert-color/actions/workflows/ci.yml/badge.svg" alt="build" /></a>
+    <a href="https://github.com/onury/invert-color/actions/workflows/ci.yml"><img src="https://img.shields.io/badge/coverage-100%25-2BB150?logo=vitest&logoColor=%23FDC72B&style=flat" alt="coverage" /></a>
+    <a href="https://stryker-mutator.io/docs/"><img src="https://img.shields.io/badge/mutation-100%25-2BB150?style=flat" alt="mutation score" /></a>
+    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/v/invert-color.svg?style=flat&label=&color=%23C6234B&logo=npm" alt="version" /></a>
+    <a href="https://www.npmjs.com/package/invert-color"><img src="https://img.shields.io/npm/dt/invert-color.svg?style=flat&color=2BB150" alt="downloads" /></a>
+    <a href="https://github.com/onury/invert-color/blob/master/package.json"><img src="https://img.shields.io/badge/dependencies-0-2BB150?style=flat" alt="zero dependencies" /></a>
+    <a href="https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7"><img src="https://img.shields.io/badge/ESM-F7DF1E?style=flat" alt="ESM" /></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TS-3260C7?style=flat" alt="TS" /></a>
+    <a href="https://github.com/onury/invert-color/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/invert-color.svg?style=flat&color=blue" alt="license" /></a>
 </p>
 
 > This module is **ESM** 🔆. Please [**read this**](https://gist.github.com/onury/d3f3d765d7db2e8b2d050d14315f2ac7).
@@ -112,10 +112,6 @@ interface BlackWhite {
 
 > [!NOTE]
 > **Input handling.** Array/object channels are clamped to `0`–`255` and rounded, so out-of-range values degrade predictably (`invert([300, 300, 300]) → '#000000'`). Malformed input — a non-`3`-length array or a non-finite channel — throws, as does an invalid HEX string.
-
-## Related
-
-- [**tinycolor2**](https://github.com/scttcper/tinycolor) — a fuller color-manipulation toolkit, when you need more than inversion.
 
 ## Changelog
 
