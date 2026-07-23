@@ -16,14 +16,21 @@ export type RGB = {
   b: number;
 };
 
-/** RGB color as a `[red, green, blue]` tuple (`0`–`255`). */
+/** RGB color as a `[red, green, blue]` tuple (`0`–`255`). The shape returned by {@link invert.asRgbArray}. */
 export type RgbArray = [number, number, number];
 
-/** Hexadecimal color string, with or without a leading `#` (`'#282b35'`, `'fff'`). */
+/**
+ *  A color as a string — either a hex color (`'#282b35'`, `'fff'`, with or
+ *  without a leading `#`) or a CSS `rgb()`/`rgba()` string (`'rgb(40, 43, 53)'`,
+ *  `'rgba(40, 43, 53, 0.5)'`).
+ */
 export type HexColor = string;
 
-/** A color expressed as a {@link HexColor}, {@link RgbArray} or {@link RGB} object. */
-export type Color = RGB | RgbArray | HexColor;
+/**
+ *  A color the library can invert: a {@link HexColor} (or `rgb()`/`rgba()`)
+ *  string, an `[r, g, b]` number array, or an {@link RGB} object.
+ */
+export type Color = RGB | number[] | HexColor;
 
 /**
  *  Black/white pair (with an optional luminance threshold) used to amplify the
@@ -42,6 +49,12 @@ export interface BlackWhite {
   threshold?: number;
 }
 
+// Parsed color: normalized RGB channels plus an optional alpha (`0`–`1`).
+interface Parsed {
+  rgb: RgbArray;
+  alpha?: number;
+}
+
 // ---------------------------------------------------------------------------
 //  CONSTANTS
 // ---------------------------------------------------------------------------
@@ -51,6 +64,8 @@ export interface BlackWhite {
 const DEFAULT_THRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05;
 
 const RE_HEX = /^(?:[0-9a-f]{3}){1,2}$/i;
+// rgb(r, g, b) / rgba(r, g, b, a) — comma-separated, whitespace tolerated.
+const RE_RGB = /^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+)\s*)?\)$/i;
 
 const DEFAULT_BW: Required<BlackWhite> = {
   black: '#000000',
@@ -85,18 +100,40 @@ function toChannel(value: number): number {
   return Math.round(Math.min(255, Math.max(0, value)));
 }
 
-function toRgbArray(color: Color): RgbArray {
+// Validates a parsed alpha is a real number (the regex already excludes negatives; >= 1 is opaque).
+function toAlpha(value: number): number {
+  if (!Number.isFinite(value)) throw new Error(`Invalid alpha value: ${value}`);
+  return value;
+}
+
+// Normalizes any Color into RGB channels + optional alpha.
+function parseColor(color: Color): Parsed {
   if (!color) throw new Error('Invalid color value');
-  if (typeof color === 'string') return hexToRgbArray(color);
+  if (typeof color === 'string') {
+    const m = RE_RGB.exec(color);
+    if (m) {
+      const [, r, g, b, a] = m;
+      return {
+        rgb: [toChannel(Number(r)), toChannel(Number(g)), toChannel(Number(b))],
+        alpha: a === undefined ? undefined : toAlpha(Number(a))
+      };
+    }
+    return { rgb: hexToRgbArray(color) };
+  }
   const channels = Array.isArray(color) ? color : [color.r, color.g, color.b];
   if (channels.length !== 3) {
     throw new Error(`Invalid color value: expected 3 channels, got ${channels.length}`);
   }
-  return channels.map(toChannel) as RgbArray;
+  return { rgb: channels.map(toChannel) as RgbArray };
 }
 
 function toRGB([r, g, b]: RgbArray): RGB {
   return { r, g, b };
+}
+
+// Appends the alpha byte to a hex string when the color is (partly) transparent.
+function withAlpha(hex: HexColor, alpha: number | undefined): HexColor {
+  return alpha === undefined || alpha >= 1 ? hex : hex + toHex(Math.round(alpha * 255));
 }
 
 // Per-channel WCAG relative luminance (linearized sRGB).
@@ -118,7 +155,7 @@ function invertToBW(rgb: RgbArray, bw: BlackWhite | true, asArr?: boolean): RgbA
 }
 
 function invertToArray(color: Color, bw?: BlackWhite | boolean): RgbArray {
-  const rgb = toRgbArray(color);
+  const { rgb } = parseColor(color);
   return bw ? (invertToBW(rgb, bw, true) as RgbArray) : (rgb.map((c) => 255 - c) as RgbArray);
 }
 
@@ -129,30 +166,36 @@ function invertToArray(color: Color, bw?: BlackWhite | boolean): RgbArray {
 /**
  *  Generates the inverted (opposite) version of the given color.
  *
- *  Channels are clamped to `0`–`255` and rounded; malformed input (a wrong-length
- *  array or a non-finite channel) throws.
- *  @param color - Color to invert, as a HEX string, RGB array or RGB object.
+ *  Accepts a hex string, a CSS `rgb()`/`rgba()` string, an `[r, g, b]` array, or
+ *  an `{ r, g, b }` object. Channels are clamped to `0`–`255` and rounded;
+ *  malformed input (a wrong-length array or a non-finite channel) throws. An
+ *  `rgba()` alpha below `1` is preserved as the 8th/9th hex digit.
+ *  @param color - Color to invert.
  *  @param bw - When truthy, amplifies the result to black or white (per the
  *  source luminance) for maximum contrast. Pass a {@link BlackWhite} object to
  *  customize the two colors and/or the luminance `threshold`.
- *  @returns The inverted color as a HEX string.
+ *  @returns The inverted color as a HEX string (8-digit `#rrggbbaa` when the
+ *  input carried alpha below `1`).
  *  @example
  *  ```ts
  *  invert('#282b35');                          // → '#d7d4ca'
+ *  invert('rgb(40, 43, 53)');                  // → '#d7d4ca'
+ *  invert('rgba(40, 43, 53, 0.5)');            // → '#d7d4ca80'  (alpha preserved)
  *  invert([69, 191, 189]);                     // → '#ba4042'
  *  invert({ r: 249, g: 119, b: 121 });         // → '#068886'
  *  invert('#282b35', true);                    // → '#ffffff'  (amplified)
- *  invert('#282b35', { black: '#111', white: '#eee' });  // → '#eeeeee'
  *  ```
  */
 function invert(color: Color, bw: BlackWhite | boolean = false): HexColor {
-  const rgb = toRgbArray(color);
-  if (bw) return invertToBW(rgb, bw) as HexColor;
-  return `#${rgb.map((c) => toHex(255 - c)).join('')}`;
+  const { rgb, alpha } = parseColor(color);
+  const hex = bw
+    ? (invertToBW(rgb, bw) as HexColor)
+    : `#${rgb.map((c) => toHex(255 - c)).join('')}`;
+  return withAlpha(hex, alpha);
 }
 
 /**
- *  Inverts the given color and returns it as an RGB object.
+ *  Inverts the given color and returns it as an RGB object. Any alpha is dropped.
  *  @param color - Color to invert.
  *  @param bw - See {@link invert}'s `bw` argument.
  *  @returns The inverted color as an `{ r, g, b }` object.
@@ -164,7 +207,7 @@ function invert(color: Color, bw: BlackWhite | boolean = false): HexColor {
 invert.asRGB = (color: Color, bw?: BlackWhite | boolean): RGB => toRGB(invertToArray(color, bw));
 
 /**
- *  Inverts the given color and returns it as an RGB array.
+ *  Inverts the given color and returns it as an RGB array. Any alpha is dropped.
  *  @param color - Color to invert.
  *  @param bw - See {@link invert}'s `bw` argument.
  *  @returns The inverted color as a `[r, g, b]` tuple.

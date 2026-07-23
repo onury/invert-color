@@ -49,6 +49,10 @@ invert('#282b35');                   // → '#d7d4ca'
 // RGB array or object input
 invert([69, 191, 189]);              // → '#ba4042'
 invert({ r: 249, g: 119, b: 121 });  // → '#068886'
+
+// CSS rgb() / rgba() strings
+invert('rgb(40, 43, 53)');           // → '#d7d4ca'
+invert('rgba(40, 43, 53, 0.5)');     // → '#d7d4ca80'  (alpha preserved as 8-digit hex)
 ```
 
 ### Amplify to Black or White
@@ -92,16 +96,16 @@ invert.asRgbObject('#fff');  // → { r: 0, g: 0, b: 0 }   (alias of asRGB)
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `color` | `HexColor \| RgbArray \| RGB` | The color to invert. HEX may be 3- or 6-digit, with or without a leading `#`. |
+| `color` | `HexColor \| number[] \| RGB` | The color to invert. Accepts a HEX string (3- or 6-digit, with or without `#`), a CSS `rgb()`/`rgba()` string, an `[r, g, b]` array, or an `{ r, g, b }` object. |
 | `bw` | `boolean \| BlackWhite` | Optional. `true` amplifies to black/white by luminance. An object customizes `black`, `white` and/or `threshold`. Defaults to `false`. |
 
 **Types**
 
 ```ts
 type RGB = { r: number; g: number; b: number };
-type RgbArray = [number, number, number];
-type HexColor = string;
-type Color = RGB | RgbArray | HexColor;
+type RgbArray = [number, number, number];   // the shape returned by asRgbArray
+type HexColor = string;                      // hex, or a CSS rgb()/rgba() string
+type Color = RGB | number[] | HexColor;
 
 interface BlackWhite {
     black: HexColor;
@@ -111,7 +115,9 @@ interface BlackWhite {
 ```
 
 > [!NOTE]
-> **Input handling.** Array/object channels are clamped to `0`–`255` and rounded, so out-of-range values degrade predictably (`invert([300, 300, 300]) → '#000000'`). Malformed input — a non-`3`-length array or a non-finite channel — throws, as does an invalid HEX string.
+> **Input handling.** Array/object channels are clamped to `0`–`255` and rounded, so out-of-range values degrade predictably (`invert([300, 300, 300]) → '#000000'`). Malformed input — a non-`3`-length array or a non-finite channel — throws, as does an invalid HEX or `rgb()` string.
+>
+> **Alpha.** An `rgba()` alpha below `1` is preserved on `invert()` as the trailing hex byte (`#rrggbbaa`); `asRGB` / `asRgbArray` return RGB only and drop it.
 
 ## Changelog
 
